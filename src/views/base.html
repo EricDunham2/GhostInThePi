@@ -1,0 +1,52 @@
+{{define "baseHTML"}}
+<body class="noselect">
+    <script src="/static/scripts/thirdparty/all.js"></script>
+    <script src="/static/scripts/thirdparty/jquery-2.1.0.min.js"></script>
+    <link rel="stylesheet" href="/static/styles/fontawesome.css">
+    <link rel="stylesheet" href="/static/styles/custom.css">
+
+    <div class="main-wrap">
+        <input id="slide-sidebar" type="checkbox" role="button" />
+        <label for="slide-sidebar" class="settings-button">
+            <div class="settings-header">Navigation</div>
+        </label>
+        <div class="sidebar">
+            <div class="setting">
+                <div class="settings-container">
+                    <i class="fas fa-home settings-image"></i>
+                    <div class="settings-label">
+                        <a href="/" class="nav-redirect">Home</a>
+                    </div>
+                </div>
+            </div>
+            <div class="setting">
+                <div class="settings-container">
+                    <i class="fas fa-cube settings-image"></i>
+                    <div class="settings-label">
+                        <a href="/CUBErt" class="nav-redirect">CUBErt</a>
+                    </div>
+                </div>
+            </div>
+            <div class="setting">
+                <div class="settings-container">
+                    <i class="fas fa-video settings-image"></i>
+                    <div class="settings-label">
+                        <a href="/camera" class="nav-redirect">Camera</a>
+                    </div>
+                </div>
+            </div>
+            <div class="setting">
+                <div class="settings-container">
+                    <i class="fas fa-compact-disc settings-image"></i>
+                    <div class="settings-label">
+                        <a href="/media" class="nav-redirect">Media</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio">
+            {{ template "contentHTML" .}}
+        </div>
+    </div>
+</body>
+{{end}}

@@ -1,0 +1,13 @@
+{{define "contentHTML"}}
+<div class="portfolio center">
+    <div class="input-group" id="endpoint-group">
+        <label for="username" class="input-label" id="username-label">Endpoint</label>
+        <input type="text" id="endpoint" name="username" class="input-box custom_input" onkeypress="endpointSubmit(event, this)">
+    </div>
+
+    <img id="stream-video" style="width:800px; height:650px" style="display:none"></img>
+</div>
+
+<script src="/templates/camera/camera.js"></script>
+<script src="/templates/media/video.js"></script>
+{{end}}
