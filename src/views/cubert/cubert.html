@@ -1,6 +1,59 @@
 {{define "contentHTML"}}
-<div class="portfolio">
-    Hello World
-</div>
-{{end}}
+<div class="vh-center">
+    <div class="w-100 content-header">
+        <div class="input-group" id="endpoint-group">
+            <label for="rows" class="input-label" id="rows-label">Rows</label>
+            <input type="text" id="rows-setting" name="rows" class="input-box custom_input" onkeypress="">
+        </div>
+        <div class="input-group" id="endpoint-group">
+            <label for="cols" class="input-label" id="cols-label">Cols</label>
+            <input type="text" id="cols-setting" name="cols" class="input-box custom_input">
+        </div>
+        <div class="input-group" id="endpoint-group">
+            <label for="parallel" class="input-label" id="parallel-label">Parallel</label>
+            <input type="text" id="parallel-setting" name="parallel" class="input-box custom_input">
+        </div>
+        <div class="input-group" id="endpoint-group">
+            <label for="endpoint" class="input-label" id="endpoint-label">Endpoint</label>
+            <input type="text" id="endpoint-setting" name="endpoint" class="input-box custom_input">
+        </div>
+    </div>
 
+    <!---Color Picker-->
+    <div class="container_color_picker">
+        <div class="picking_color">
+            <div class="hue" id="hue">
+                <div class="pointer" id="hue_pointer" style="top:0;"></div>
+            </div>
+            <div class="saturation">
+                <div class="bw_g"></div>
+                <div class="pointer" id="sat_pointer" style="top:0;left:0;"></div>
+            </div>
+        </div>
+        <div class="switch-colors-system">
+            <span class="switch left"></span>
+            <span class="switch right"></span>
+            <div class="colors-system">
+                <span style="opacity: 1;">HEX</span>
+                <span style="opacity: 0;">RGB</span>
+                <span style="opacity: 0;">HSL</span>
+            </div>
+        </div>
+        <div class="result" id="result">#FFFFFF</div>
+        <div class="copied">Copied</div>
+        <input type="text" class="color" value="#FFFFFF"> </div>
+    <!---Color Picker End-->
+    <div id='matrix' class='matrix'></div>
+    <div class="w-100 content-footer vh-content button-container">
+        <button class="trim-content-box">Apply</button>
+        <button class="trim-content-box">Clear</button>
+        <button class="trim-content-box">Gradient</button>
+        <button class="trim-content-box">Rotate</button>
+    </div>
+</div>
+<script src="/templates/cubert/color-picker.js"></script>
+<script src="/templates/cubert/matrix.js"></script> 
+<script src="/templates/cubert/paint.js"></script>
+
+
+{{end}}

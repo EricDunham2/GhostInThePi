@@ -26,17 +26,12 @@ var (
 
 func main() {
 	router = mux.NewRouter()
-	fmt.Println("[" + ft(time.Now()) + "] " + "Running main")
-
 	init_routes()
 
-	err := http.ListenAndServe(":5000", router)
-	fmt.Println("[" + ft(time.Now()) + "] " + string(err.Error()))
+	http.ListenAndServe(":5000", router)
 }
 
 func init_routes() {
-	fmt.Println("[" + ft(time.Now()) + "] " + "Creating routes")
-
 	resources := packr.NewBox("./static")
 	views := packr.NewBox("./src/views")
 

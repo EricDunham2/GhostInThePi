@@ -112,14 +112,14 @@ function closeModel() {
 }
 
 function playMedia(path) {
-    var parent = document.getElementById("contents");
+    var parent = document.getElementById("search-form");
 
     var html = `
         <div class="modal-close" onclick="closeModel()">x</div>
 
             <div class="media-player">
             <video class="video-player" id="video" src="${path}" onseeking="onSeek(this.currentTime)"
-                onseeked="onSeek(this.currentTime)" onplaying="playingSeek()" ondurationchange="init()"></video>
+                onseeked="onSeek(this.currentTime)" onplaying="playingSeek()" ondurationchange="videoInit()"></video>
             <div class="player-controls">
                 <div class="player-buttons">
                     <button id="play" onclick="playClick()" class="video-control">

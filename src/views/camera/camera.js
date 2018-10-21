@@ -4,32 +4,6 @@ const PASSED_REQUEST = 200;
 
 var video = document.getElementById("stream-video");
 
-$(function () {
-
-    $(".input-group input").focus(function () {
-
-        $(this).parent(".input-group").each(function () {
-            $("label", this).css({
-                "font-size": "13px",
-            })
-            
-        })
-    }).blur(function () {
-        if ($(this).val() == "") {
-
-            $(this).css({"background":"#111",})
-
-            $(this).parent(".input-group").each(function () {
-                $("label", this).css({
-                    "font-size": "18px",
-                })
-            });
-        } else {
-            $(this).css({"background":"#212121",})
-        }
-    });
-});
-
 function fadeOut(el) {
     var parent = document.getElementsByClassName("portfolio")[0];
     return new Promise((resolve, reject) => {
