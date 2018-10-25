@@ -1,0 +1,54 @@
+{{define "baseHTML"}}
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<body class="noselect">
+    <script src="/templates/app.js"></script>
+    <script src="/static/scripts/thirdparty/all.js"></script>
+    <script src="/static/scripts/thirdparty/jquery-2.1.0.min.js"></script>
+    <link rel="stylesheet" href="/static/styles/fontawesome.css">
+    <link rel="stylesheet" href="/static/styles/custom.css">
+    <script src="/static/scripts/custom/helpers.js"></script>
+    <div class="main-wrap">
+        <input id="slide-sidebar" type="checkbox" role="button" />
+        <label for="slide-sidebar" class="settings-button h-100">
+            <div class="settings-header">Navigation</div>
+        </label>
+        <div class="sidebar">
+            <div class="setting">
+                <div class="settings-container">
+                    <i class="fas fa-home settings-image"></i>
+                    <div class="settings-label">
+                        <a href="/" class="nav-redirect h-content w-100">Home</a>
+                    </div>
+                </div>
+            </div>
+            <div class="setting">
+                <div class="settings-container">
+                    <i class="fas fa-cube settings-image"></i>
+                    <div class="settings-label">
+                        <a href="/CUBErt" class="nav-redirect h-content w-100">CUBErt</a>
+                    </div>
+                </div>
+            </div>
+            <div class="setting">
+                <div class="settings-container">
+                    <i class="fas fa-video settings-image"></i>
+                    <div class="settings-label">
+                        <a href="/camera" class="nav-redirect h-content w-100">Camera</a>
+                    </div>
+                </div>
+            </div>
+            <div class="setting">
+                <div class="settings-container">
+                    <i class="fas fa-compact-disc settings-image"></i>
+                    <div class="settings-label">
+                        <a href="/media" class="nav-redirect h-content w-100">Media</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio h-center">
+            {{ template "contentHTML" .}}
+        </div>
+    </div>
+</body>
+{{end}}

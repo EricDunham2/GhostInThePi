@@ -202,6 +202,8 @@ func Build(root string, filters []string) string {
 	return string(j)
 }
 
+
+//TODO use array for extensions
 func getDirFiles(path string, root string) []Node {
 	var fname []Node
 
@@ -209,6 +211,7 @@ func getDirFiles(path string, root string) []Node {
 
 	for _, file := range files {
 		if (file.IsDir()) { continue }
+
 
 		var fp string = ""
 
@@ -219,6 +222,8 @@ func getDirFiles(path string, root string) []Node {
 			fp = path + "\\" + file.Name()
 			fp, _ = filepath.Abs(fp)
 		}
+
+		if(filepath.Ext(fp) != ".mp4") { continue }
 
 		videoPath := strings.Replace(fp, root, "/video/", 1)
 		videoPath = strings.Replace(videoPath, "\\", "/", -1)

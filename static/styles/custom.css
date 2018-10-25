@@ -143,7 +143,7 @@ body {
     border: 0px solid;
     height: 20px;
     width: 160px;
-    color: #ccc;
+    color: #4fffb4;
     font-weight: bold;
   }
   
@@ -276,7 +276,7 @@ body {
 }
 
 .media-file {
-    color:#212121;
+    color:darkslategray;//crimson;
     width:120px;
     height:120px;
     display:inline;
@@ -338,7 +338,7 @@ body {
   }
   
   .play-modal {
-    background: rgba(99, 99, 160, 0.9);
+    background: black;
     width: 50vw;
     height: 50vh;
     margin: auto;
@@ -356,6 +356,7 @@ body {
     position: absolute;
     top: 0;
     right: 10;
+    z-index: 10;
   }
   
   /*? Replace with w-100*/
@@ -366,7 +367,7 @@ body {
   /*? Replace with h-80 and remove class*/
   video {
     width: inherit;
-    height: 80%;
+    height: 100%;
   }
   
   .player-controls {
@@ -475,6 +476,7 @@ body {
     width: 30px;
     border: none;
     background: #212121;
+    font-size: 10px;
   }
   
   .video-control:hover {
