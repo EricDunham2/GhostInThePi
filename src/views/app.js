@@ -48,8 +48,7 @@ function getIpAddress() {
 function setIpAddress(response) {
     if (!response) { return; } 
 
-    console.log(response);
-    self.ipAddress = response;
+    self.ipAddress = response.replace(/"/g,"");
 }
 
 function init() {

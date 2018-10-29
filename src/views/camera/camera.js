@@ -46,8 +46,7 @@ function endpointSubmit(event, el) {
     if (event.keyCode != 13) { return; }
     var endpoint_el = document.getElementById("endpoint");
     var endpoint_group = document.getElementById("endpoint-group");
-
-    
+   
     REST("GET",`http://${endpoint_el.value}/ping`, false).then(handle, handle)
 
     fadeOut(endpoint_group).then(handle, handle);
@@ -70,16 +69,3 @@ function endpointSubmit(event, el) {
     }
 }
 
-function REST(type, endpoint, async) {
-    return new Promise((resolve, reject) => {
-        let request = new XMLHttpRequest();
-        request.open(type, endpoint, async);
-    
-        request.onload = function() {
-            let data = this.response.replace(/"/g,"");
-            resolve(data);
-        }
-    
-        request.send();
-    });
-}

@@ -38,17 +38,13 @@ func init_routes() {
 	router.PathPrefix("/static").Handler(http.StripPrefix("/static/", http.FileServer(resources)))
 	router.PathPrefix("/templates").Handler(http.StripPrefix("/templates/", http.FileServer(views)))
 
-	//base := views.String("/base.html")
-	//cubert := views.String("/cubert/cubert.html")
-	//media := views.String("/media/media.html")
-	//home := views.String("/home/home.html")
-
-	router.HandleFunc("/home/getMacAddr", getMacAddr).Methods("GET")
-	router.HandleFunc("/home/getIpAddr", getIpAddr).Methods("GET")
+	router.HandleFunc("/config",Defaults).Methods("GET")
+	router.HandleFunc("/getMacAddr", getMacAddr).Methods("GET")
+	router.HandleFunc("/getIpAddr", getIpAddr).Methods("GET")
 	router.HandleFunc("/media/findMedia", FindMedia).Methods("POST")
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := []string{"./src/views/base.html","./src/views/home/home.html"}
+		tmpl := []string{"./src/views/app.html","./src/views/home/home.html"}
 		i, err := template.New("").ParseFiles(tmpl...)
 
 		if err != nil {
@@ -61,7 +57,7 @@ func init_routes() {
 	})
 
 	router.HandleFunc("/CUBErt", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := []string{"./src/views/base.html","./src/views/cubert/cubert.html"}
+		tmpl := []string{"./src/views/app.html","./src/views/cubert/cubert.html"}
 		i, err := template.New("").ParseFiles(tmpl...)
 
 		if err != nil {
@@ -74,7 +70,7 @@ func init_routes() {
 	})
 
 	router.HandleFunc("/media", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := []string{"./src/views/base.html","./src/views/media/media.html"}
+		tmpl := []string{"./src/views/app.html","./src/views/media/media.html"}
 		i, err := template.New("").ParseFiles(tmpl...)
 
 		if err != nil {
@@ -87,7 +83,7 @@ func init_routes() {
 	})
 
 	router.HandleFunc("/camera", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := []string{"./src/views/base.html","./src/views/camera/camera.html"}
+		tmpl := []string{"./src/views/app.html","./src/views/camera/camera.html"}
 		i, err := template.New("").ParseFiles(tmpl...)
 
 		if err != nil {
@@ -126,26 +122,19 @@ func log_request(request *http.Request) {
 func FindMedia(w http.ResponseWriter, r *http.Request) {
 	body, _ := ioutil.ReadAll(r.Body)
 	path, _ := filepath.Abs(string(body[:]))
-
-	log_request(r)
-
+		
 	filters := []string{".mp4", ".avi"}
-	data, _ := Search(path,filters)
-
-	//media := packr.NewBox(path)
+	data, _ := Search(path, filters)
 
 	fs := http.FileServer(http.Dir(path))
-
-	//http.Handle("/video/", http.StripPrefix("/video", fs))
-	router.PathPrefix("/video").Handler(http.StripPrefix("/video/",fs))
-
-	fmt.Println(fs)
+	router.PathPrefix("/video").Handler(http.StripPrefix("/video/", fs))
 
 	re, _ := json.Marshal(data)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(re)
 }
+
 type Branch struct {
 	Name string `json:name`
 	Path string `json:path`
@@ -273,49 +262,26 @@ func getMacAddr(w http.ResponseWriter, r *http.Request) {
 }
 
 func getIpAddr(w http.ResponseWriter, r *http.Request) {
-	ifaces, _ := net.Interfaces()
-	var ip net.IP
+	conn, _ := net.Dial("udp", "8.8.8.8:80")
 
-	for _, iface := range ifaces {
+	defer conn.Close()
 
-		if iface.Flags&net.FlagUp == 0 {
-			continue // interface down
-		}
+	localAddr := conn.LocalAddr().(*net.UDPAddr)
 
-		if iface.Flags&net.FlagLoopback != 0 {
-			continue // loopback interface
-		}
-
-		addrs, _ := iface.Addrs()
-
-		for _, addr := range addrs {
-			switch v := addr.(type) {
-			case *net.IPNet:
-				ip = v.IP
-			case *net.IPAddr:
-				ip = v.IP
-			}
-			if ip == nil || ip.IsLoopback() {
-				continue
-			}
-			ip = ip.To4()
-			if ip == nil {
-				continue // not an ipv4 address
-			}
-		}
-	}
-
-	ret, _ := json.Marshal(ip.String())
+	ret, _ := json.Marshal(localAddr.IP.String())
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(ret)
 }
 /******** End Networking ********/
 
-
-
 /************* Helpers **********/
 func filename(path string) string {
 	parts := strings.Split(path, "\\")
 	return parts[len(parts)-1]
+}
+
+func Defaults(w http.ResponseWriter, r *http.Request) {
+	data, _ := ioutil.ReadFile("./static/config.json") 
+	w.Write(data)
 }

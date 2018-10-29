@@ -19,7 +19,7 @@ function createMatrix(r, c, c1, c2) {
 
             var el = createElement('div', {
                     'class': 'pixel',
-                    'style': 'background:black',
+                    'style': 'background:rgb(0,0,0)',
                     'id': id,
                     'onmouseover': 'setSelectedPixel(this);'
                 },

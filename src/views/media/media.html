@@ -1,8 +1,8 @@
 {{define "contentHTML"}}
 
-<div id="search-form" class="c-input w-80">
-    <div class="c-input">File Path:</div>
-    <input id="inputPath" class="c-input frameless-input grey-input w-100">
+<div id="search-form" class="c-input w-80"> <!-- for now cant point the file server to a new location-->
+    <div class="c-input" style="display:none;">File Path:</div>
+    <input id="inputPath" class="c-input frameless-input grey-input w-100" style="display:none;">
 </div>
 <div id="contents">
     <div id="file-browser" class="media-container">
@@ -11,8 +11,9 @@
 <head>
     <script src="/static/scripts/thirdparty/cast_sender.js"></script>
     <script src="/templates/media/video.js"></script>
-    <script src="/static/scripts/thirdparty/cast_framework.js"></script>
     <script src="/templates/media/media.js"></script>
+    <script src="/templates/media/chromecast.js"></script>
+    <script src="/static/scripts/thirdparty/cast_framework.js"></script>
     <link href="/static/styles/material-icon.css" rel="stylesheet"></link>
 </head>
 
