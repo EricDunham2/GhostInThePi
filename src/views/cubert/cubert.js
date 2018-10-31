@@ -41,10 +41,7 @@ function getPixels() {
 }
 
 function Apply() {
-
     var pixels = JSON.stringify(getPixels());
-
-    console.log(`http://${self.cubertEndpoint}/apply`);
     
     REST("POST",`http://${self.cubertEndpoint}/apply`, false, pixels).then(handle, handle)
 
@@ -61,8 +58,6 @@ function Test() {
         {"x":113, "y":0, "r":255, "g":255, "b":0}
     ]);
     
-    console.log(`http://${self.cubertEndpoint}/test`);
-
     REST("POST",`http://${self.cubertEndpoint}/test`, false, test).then(handle, handle)
 
     function handle(result) {
@@ -71,13 +66,11 @@ function Test() {
 }
 
 function Rotate() {
-    var pixels = getPixels();
+    var delay = 100;
 
-    console.log(`http://${self.cubertEndpoint}/rotate`);
-
-    REST("GET",`http://${self.cubertEndpoint}/rotate`, false).then(handle, handle);
+    REST("POST",`http://${self.cubertEndpoint}/rotate`, false, delay).then(handle, handle);
 
     function handle(result) {
-        console.log(result)
+        console.log(result);
     }
 }

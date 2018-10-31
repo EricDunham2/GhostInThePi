@@ -282,6 +282,6 @@ func filename(path string) string {
 }
 
 func Defaults(w http.ResponseWriter, r *http.Request) {
-	data, _ := ioutil.ReadFile("./static/config.json") 
+	data, _ := ioutil.ReadFile("./static/configs/config.json") 
 	w.Write(data)
 }

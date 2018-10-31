@@ -41,20 +41,40 @@
         </div>
         <div class="result" id="result">#FFFFFF</div>
         <div class="copied">Copied</div>
-        <input type="text" class="color" value="#FFFFFF"> </div>
+        <input type="text" class="color" value="#FFFFFF">
+    </div>
     <!---Color Picker End-->
     <div id='matrix' class='matrix'></div>
-    <div class="w-100 content-footer vh-content button-container">
-        <button class="trim-content-box" onclick="Apply()">Apply</button>
-        <button class="trim-content-box">Clear</button>
-        <button class="trim-content-box">Gradient</button>
-        <button class="trim-content-box" onclick="Rotate()">Rotate</button>
-        <button class="trim-content-box" onclick="Test()">Test</button>
+
+    <div class="controls content-footer">
+        <div id="actions" class="btn-group w-100 vh-content">
+            <span>
+                <label class="header vh-center w-100 no-margin">
+                    <span>Actions</span>
+                </label>
+            </span>
+            <div class="vh-center">
+                <div class="btn vh-center" onclick="Apply()"><span class="v-center">Apply</span></div>
+                <div class="btn vh-center" onclick="Test()"><span class="v-center">Gradient</span></div>
+                <div class="btn vh-center" onclick="Test()"><span class="v-center">Test</span></div>
+            </div>
+        </div>
+        <div id="options" class="btn-group w-100 vh-content">
+            <span>
+              <label class="header vh-center w-100 no-margin">
+                <span>Options</span>
+              </label>
+            </span>
+            <div class="vh-center">
+              <input id="rotating" type="checkbox" role="button" onclick="Rotate()"/>
+              <label for="rotating" class="toggle-lbl vh-center"><span class="v-center">Rotate</span></label>
+            </div>
+          </div>
     </div>
 </div>
 <script src="/templates/cubert/color-picker.js"></script>
 <script src="/templates/cubert/cubert.js"></script>
-<script src="/templates/cubert/matrix.js"></script> 
+<script src="/templates/cubert/matrix.js"></script>
 <script src="/templates/cubert/paint.js"></script>
 
 
