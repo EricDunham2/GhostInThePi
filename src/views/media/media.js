@@ -46,6 +46,27 @@ new Vue({
         },
         closeModal() {
             this.selectedFile = null;
+        },
+        playClick() {
+
+        },
+        playSeek(value) {
+            
+        },
+        pauseClick() {
+
+        },
+        seek(value) {
+
+        },
+        onSeek(value) {
+
+        },
+        fullscreenClick() {
+
+        },
+        muteClick() {
+            
         }
     },
     beforeMount() {
