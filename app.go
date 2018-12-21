@@ -15,11 +15,6 @@ import (
 	"strings"
 )
 
-type Result struct {
-	err interface{}
-	data interface{}
-}
-
 var (
 	router *mux.Router
 )
@@ -29,10 +24,11 @@ func main() {
 	init_routes()
 
 	http.ListenAndServe(":5000", router)
+	fmt.Println("Listening");
 }
 
 func init_routes() {
-	resources := packr.NewBox("./static")
+	resources := packr.NewBox("./src/static")
 	views := packr.NewBox("./src/views")
 
 	router.PathPrefix("/static").Handler(http.StripPrefix("/static/", http.FileServer(resources)))
@@ -123,7 +119,7 @@ func FindMedia(w http.ResponseWriter, r *http.Request) {
 	body, _ := ioutil.ReadAll(r.Body)
 	path, _ := filepath.Abs(string(body[:]))
 		
-	filters := []string{".mp4", ".avi"}
+	filters := []string{".mp4", ".avi", ".wmv"}
 	data, _ := Search(path, filters)
 
 	fs := http.FileServer(http.Dir(path))
@@ -282,6 +278,6 @@ func filename(path string) string {
 }
 
 func Defaults(w http.ResponseWriter, r *http.Request) {
-	data, _ := ioutil.ReadFile("./static/configs/config.json") 
+	data, _ := ioutil.ReadFile("./src/static/configs/config.json") 
 	w.Write(data)
 }

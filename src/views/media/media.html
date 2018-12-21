@@ -1,20 +1,88 @@
 {{define "contentHTML"}}
-
-<div id="search-form" class="c-input w-80"> <!-- for now cant point the file server to a new location-->
-    <div class="c-input" style="display:none;">File Path:</div>
-    <input id="inputPath" class="c-input frameless-input grey-input w-100" style="display:none;">
-</div>
-<div id="contents">
-    <div id="file-browser" class="media-container">
+<div class="flex-container col-100 hc" id="mediaContent">
+    <div class="panel col-90">
+        <div class="panel-header">
+            <!--<div id="search-form" class="c-input w-80"> 
+                <div class="c-input" style="display:none;">File Path:</div>
+                <input id="inputPath" class="c-input frameless-input grey-input w-100" style="display:none;">
+            </div>-->
+        </div>
+        <div class="panel-content col-100 hc" id="file-browser">
+            <div class="tile-md l3 clickable no-touch-table action" v-on:click="selectFolder(selectedFolder.parent)"
+                v-if="selectedFolder.parent" v-cloak>
+                <div class="panel col-100">
+                    <div class="panel-header col-80">
+                        <div>..</div>
+                    </div>
+                    <div class="panel-content hc">
+                        <i class="material-icons icon-md vhc">arrow_back</i>
+                    </div>
+                </div>
+            </div>
+            <div class="tile-md l3 clickable no-touch-table" v-for="folder in selectedFolder.Branches" v-on:click="selectFolder(folder)"
+                v-cloak>
+                <div class="panel col-100">
+                    <div class="panel-header col-80 hc">
+                        <div style="color:crimson; margin-top: 5px; " v-text="folder.Name"></div>
+                    </div>
+                    <div class="panel-content hc">
+                        <i class="material-icons icon-md vhc">folder</i>
+                    </div>
+                </div>
+            </div>
+            <div class="tile-md l3 clickable no-touch-table" v-for="file in selectedFolder.Nodes" v-on:click="selectFile(file)"
+                v-cloak>
+                <div class="panel col-100">
+                    <div class="panel-header col-80 hc">
+                        <div v-text="file.Name" style="color:crimson; margin-top: 5px;"></div>
+                    </div>
+                    <div class="panel-content hc">
+                        <i class="material-icons icon-md vhc">movie</i>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <template v-if="selectedFile" v-cloak>
+        <div class="flex-container col-100" style="height:100vh; position:absolute; top:40; left:0;">
+            <div class="modal-close" v-on:click="closeModal()">x</div>
+            <div class="media-player col-100" style="background:crimson;">
+                <!--<video class="video-player" id="video" src="${path}" onseeking="onSeek(this.currentTime)" onseeked="onSeek(this.currentTime)"
+                            onplaying="playingSeek()" ondurationchange="videoInit()"></video>
+                        <div class="player-controls">
+                            <div class="player-buttons">
+                                <button id="play" onclick="playClick()" class="video-control">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button id="volume" onclick="muteClick()" class="video-control">
+                                    <i class="fas fa-volume-up"></i>
+                                    <input type="range" onchange="volumeChange(this.value)" oninput="volumeChange(this.value)" min="0"
+                                        max="1" value="0" step="0.01" class="volume-slider" id="volume">
+                                </button>
+                            </div>
+                            <div class="player-navigation">
+                                <input type="range" onchange="seek(this.value)" oninput="seek(this.value)" min="0" max="100" value="0"
+                                    step="0.1" class="seek-slider" id="seek-navigation">
+                            </div>
+                            <div class="player-augments">
+                                <button is="google-cast-button" class="video-control" id="castButton" onclick="playRemote('${path}', 0, false)"></button>
+                                <button id="fullscreen" class="video-control" onclick="fullscreenClick()">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>-->
+            </div>
+        </div>
+    </template>
 </div>
+
 <head>
     <script src="/static/scripts/thirdparty/cast_sender.js"></script>
     <script src="/templates/media/video.js"></script>
     <script src="/templates/media/media.js"></script>
     <script src="/templates/media/chromecast.js"></script>
     <script src="/static/scripts/thirdparty/cast_framework.js"></script>
-    <link href="/static/styles/material-icon.css" rel="stylesheet"></link>
 </head>
 
 {{end}}

@@ -1,18 +1,17 @@
 {{define "contentHTML"}}
-<div class="trim-content-box slogan-box">
-    <clock-widget></clock-widget>
+<div id="homeContent" class="no-touch-top flex-container col-100" >
+  <div class="panel col-100">
+    <div class="panel-header" style="height:fit-content;">
+        <div class="trim-content-box slogan-box">
+            <div id="clock" v-text="time"></div>
+        </div>
+    </div>
+    <div class="panel-content vhc" style="height: 100%;">
+        <div id="ipAddr" v-text="localAddr"></div>
+    </div>
+  </div>
+    <!--<globe id="network-globe"></globe>
+    <div id="macAddr"></div>-->
 </div>
-<!--<globe id="network-globe"></globe>
-<div id="macAddr"></div>-->
-<div id="ipAddr"></div>
-
-<head>
-    <!--<script src="/static/scripts/thirdparty/Detector.js"></script>
-    <script src="/static/scripts/thirdparty/three.min.js"></script>
-    <script src="/static/scripts/thirdparty/Tween.js"></script>-->
-    <script src="/static/scripts/widgets/clock.js"></script>
-    <!--<script src="/static/scripts/widgets/globe.js"></script>-->
-    <script src="/templates/home/home.js"></script>
-</head>
-
+<script src="/templates/home/home.js"></script>
 {{end}}
