@@ -597,6 +597,14 @@ i.icon-xs {
     width: 200px;
   }
 
+  .slogan-box {
+    width:90%;
+  }
+
+  #clock {
+    font-size: 45px;
+  }
+
   .navbar-item {
     display: none;
   }

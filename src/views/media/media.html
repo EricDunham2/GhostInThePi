@@ -70,9 +70,10 @@
         <video
           class="video-player"
           id="video"
-          :src="selectedFile.Path"
+          :src="selectedFile.Video"
+          controls
         ></video>
-        <div class="player-controls">
+        <!--<div class="player-controls">
           <div class="player-buttons">
             <button id="play" onclick="playClick()" class="video-control">
               <i class="fas fa-play"></i>
@@ -120,7 +121,7 @@
               <i class="fas fa-expand"></i>
             </button>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </template>
@@ -128,7 +129,7 @@
 
 <head>
   <script src="/static/scripts/thirdparty/cast_sender.js"></script>
-  <script src="/templates/media/video.js"></script>
+  <!--<script src="/templates/media/video.js"></script>-->
   <script src="/templates/media/media.js"></script>
   <script src="/templates/media/chromecast.js"></script>
   <script src="/static/scripts/thirdparty/cast_framework.js"></script>
