@@ -803,7 +803,7 @@ body {
 .row {
     display: inline-block;
     margin: 0px;
-    z-index: 10000;
+    height:fit-content !important;
 }
 
 .matrix-container {
@@ -817,8 +817,6 @@ body {
 
 .matrix {
     /* position: relative; */
-    width: 300px;
-    height: 300px;
     /* left: 100px; */
     line-height: 0px;
     float: left;

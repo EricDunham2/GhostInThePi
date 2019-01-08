@@ -62,14 +62,14 @@
                         </div>-->
           </div>
         </div>
-        <div class="panel col-50">
+        <div class="panel col-100">
           <div class="panel-header"></div>
           <div class="panel-content hc">
-            <template id="matrix" class="matrix">
-              <div v-for="row in pixels" class="row">
+            <div id="matrix" class="matrix hc">
+              <div v-for="row in pixels" class="row hc col-100">
                 <div v-for="pixel in row" class="pixel" v-bind:style="pixel.style" :key="pixel.id" v-on:mouseover="setPixel(pixel)"></div>
               </div>
-            </template>
+            </div>
           </div>
         </div>
       </div>
@@ -83,6 +83,9 @@
             </label>
           </span>
           <div class="vh-center">
+            <div class="btn vh-center" v-on:click="createMatrix()">
+              <span class="v-center">New</span>
+            </div>
             <div class="btn vh-center" v-on:click="apply()">
               <span class="v-center">Apply</span>
             </div>
