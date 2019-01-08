@@ -1,103 +1,115 @@
 {{define "contentHTML"}}
-<div class="hc col-100 flex-container" id="paintContent">
+<link rel="stylesheet" href="/static/styles/vue-color-picker.min.css">
+
+<div>
+  <div class="hc col-100 flex-container" id="paintContent">
     <div class="panel col-80">
-        <div class="panel-header">
-            Configuration
+      <div class="panel-header">Configuration</div>
+      <div class="panel-content">
+        <div class="input-group">
+          <label for="rows" class="input-label" id="rows-label">Rows</label>
+          <input type="text" id="rows-setting" name="rows" class="input-box custom_input" v-model="rows" />
         </div>
-        <div class="panel-content">
-            <div class="input-group">
-                <label for="rows" class="input-label" id="rows-label">Rows</label>
-                <input type="text" id="rows-setting" name="rows" class="input-box custom_input" onkeypress="">
-            </div>
-            <div class="input-group">
-                <label for="cols" class="input-label" id="cols-label">Cols</label>
-                <input type="text" id="cols-setting" name="cols" class="input-box custom_input">
-            </div>
-            <div class="input-group">
-                <label for="parallel" class="input-label" id="parallel-label">Parallel</label>
-                <input type="text" id="parallel-setting" name="parallel" class="input-box custom_input">
-            </div>
-            <div class="input-group">
-                <label for="parallel" class="input-label" id="panel-label">Panels</label>
-                <input type="text" placeholder="0,1,2,3" id="panel-input" name="parallel" class="input-box custom_input">
-            </div>
+        <div class="input-group">
+          <label for="cols" class="input-label" id="cols-label">Cols</label>
+          <input type="text" id="cols-setting" name="cols" class="input-box custom_input" v-model="cols" />
         </div>
+        <div class="input-group">
+          <label for="parallel" class="input-label" id="parallel-label">Parallel</label>
+          <input type="text" id="parallel-setting" name="parallel" class="input-box custom_input" v-model="parallels" />
+        </div>
+        <div class="input-group">
+          <label for="parallel" class="input-label" id="panel-label">Panels</label>
+          <input type="text" placeholder="0,1,2,3" id="panel-input" name="parallel" class="input-box custom_input"
+            v-model="panels" />
+        </div>
+        <div class="input-group">
+          <label for="parallel" class="input-label" id="brush">Brush Size</label>
+          <input type="text" placeholder="1" type="number" min="1" max="3" id="brush" name="parallel" class="input-box custom_input"
+            v-model="brushSize" />
+        </div>
+      </div>
     </div>
     <div class="panel col-80">
-        <div class="panel-header">
+      <div class="panel-header"></div>
+      <div class="panel-content hc">
+        <div class="panel col-50">
+          <div class="panel-header"></div>
+          <div class="panel-content hc">
+            <color-picker v-bind="color" @input="onInput"></color-picker>
+            <!--<div class="container_color_picker">
+                            <div class="picking_color">
+                                <div class="hue" id="hue">
+                                    <div class="pointer" id="hue_pointer" style="top:0;"></div>
+                                </div>
+                                <div class="saturation">
+                                    <div class="bw_g"></div>
+                                    <div class="pointer" id="sat_pointer" style="top:0;left:0;"></div>
+                                </div>
+                            </div>
+                            <div class="switch-colors-system">
+                                <span class="switch left"></span>
+                                <span class="switch right"></span>
+                                <div class="colors-system">
+                                    <span style="opacity: 1;">HEX</span>
+                                    <span style="opacity: 0;">RGB</span>
+                                    <span style="opacity: 0;">HSL</span>
+                                </div>
+                            </div>
+                            <div class="result" id="result">#FFFFFF</div>
+                            <div class="copied">Copied</div>
+                            <input type="text" class="color" value="#FFFFFF">
+                        </div>-->
+          </div>
         </div>
-        <div class="panel-content hc">
-            <div class="panel col-50">
-                <div class="panel-header">
-                </div>
-                <div class="panel-content hc">
-                    <div class="container_color_picker">
-                        <div class="picking_color">
-                            <div class="hue" id="hue">
-                                <div class="pointer" id="hue_pointer" style="top:0;"></div>
-                            </div>
-                            <div class="saturation">
-                                <div class="bw_g"></div>
-                                <div class="pointer" id="sat_pointer" style="top:0;left:0;"></div>
-                            </div>
-                        </div>
-                        <div class="switch-colors-system">
-                            <span class="switch left"></span>
-                            <span class="switch right"></span>
-                            <div class="colors-system">
-                                <span style="opacity: 1;">HEX</span>
-                                <span style="opacity: 0;">RGB</span>
-                                <span style="opacity: 0;">HSL</span>
-                            </div>
-                        </div>
-                        <div class="result" id="result">#FFFFFF</div>
-                        <div class="copied">Copied</div>
-                        <input type="text" class="color" value="#FFFFFF">
-                    </div>
-                </div>
-            </div>
-            <div class="panel col-50">
-                <div class="panel-header">
-                </div>
-                <div class="panel-content hc">
-                    <div id='matrix' class='matrix'></div>
-                </div>
-            </div>
+        <div class="panel col-50">
+          <div class="panel-header"></div>
+          <div class="panel-content hc">
+            <template id="matrix" class="matrix">
+              <div v-for="row in pixels" class="row">
+                <div v-for="pixel in row" class="pixel" v-bind:style="pixel.style" :key="pixel.id" v-on:mouseover="setPixel(pixel)"></div>
+              </div>
+            </template>
+          </div>
         </div>
+      </div>
     </div>
     <div class="panel col-50">
-        <div class="panel-header">
-            Actions
-        </div>
-        <div class="panel-content hc">
-            <div id="actions" class="btn-group w-100 vh-content">
-                <span>
-                    <label class="header vh-center w-100 no-margin">
-                        <span>Actions</span>
-                    </label>
-                </span>
-                <div class="vh-center">
-                    <div class="btn vh-center" onclick="Apply()"><span class="v-center">Apply</span></div>
-                    <div class="btn vh-center" onclick="Test()"><span class="v-center">Gradient</span></div>
-                    <div class="btn vh-center" onclick="Test()"><span class="v-center">Test</span></div>
-                </div>
+      <div class="panel-content hc l3">
+        <div id="actions" class="btn-group col-100 vh-content">
+          <span>
+            <label class="header vh-center col-100 no-margin">
+              <span>Actions</span>
+            </label>
+          </span>
+          <div class="vh-center">
+            <div class="btn vh-center" v-on:click="apply()">
+              <span class="v-center">Apply</span>
             </div>
-            <div id="options" class="btn-group w-100 vh-content">
-                <span>
-                    <label class="header vh-center w-100 no-margin">
-                        <span>Options</span>
-                    </label>
-                </span>
-                <div class="vh-center">
-                    <input id="rotating" type="checkbox" role="button" onclick="Rotate()" />
-                    <label for="rotating" class="toggle-lbl vh-center"><span class="v-center">Rotate</span></label>
-                </div>
+            <div class="btn vh-center" v-on:click="test()">
+              <span class="v-center">Gradient</span>
             </div>
+            <div class="btn vh-center" v-on:click="test()">
+              <span class="v-center">Test</span>
+            </div>
+          </div>
         </div>
+        <div id="options" class="btn-group col-100 vh-content">
+          <span>
+            <label class="header vh-center col-100 no-margin">
+              <span>Options</span>
+            </label>
+          </span>
+          <div class="vh-center">
+            <input id="rotating" type="checkbox" role="button" v-on:click="rotate()" />
+            <label for="rotating" class="toggle-lbl vh-center"><span class="v-center">Rotate</span></label>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<!--<div class="controls content-footer">
+  <!--<div class="controls content-footer">
     <div id="actions" class="btn-group w-100 vh-content">
         <span>
             <label class="header vh-center w-100 no-margin">
@@ -123,10 +135,8 @@
     </div>
 </div>
 </div>-->
-<script src="/templates/cubert/color-picker.js"></script>
+</div>
+
+<script src="/static/scripts/widgets/vue-color-picker.js"></script>
 <script src="/templates/cubert/cubert.js"></script>
-<script src="/templates/cubert/matrix.js"></script>
-<script src="/templates/cubert/paint.js"></script>
-
-
-{{end}}
+{{ end }}

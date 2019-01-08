@@ -1,4 +1,4 @@
-var self = this;
+var vm = this;
 
 new Vue({
     el: '#mediaContent',
@@ -7,7 +7,7 @@ new Vue({
         selectedFolder: null,
         selectedFile: null,
         mediaPath: null,
-        searchPath: "C:\\Users\\edunham4\\Downloads"
+        searchPath: ""
     },
     methods: {
         _getMedia(path) {
@@ -34,7 +34,11 @@ new Vue({
             return response && response.status === 200 && response.data
         },
         _addParentReference(parent) {
+            if (!parent){ return; }
+
             parent.Branches.forEach(folder => {
+                if (!folder.parent) { return; }
+
                 folder.parent = parent;
                 //this._addParentReference(parent);
             })
