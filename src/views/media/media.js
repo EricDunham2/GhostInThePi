@@ -37,7 +37,7 @@ new Vue({
             if (!parent){ return; }
 
             parent.Branches.forEach(folder => {
-                if (!folder.parent) { return; }
+                //if (!folder.parent) { return; }
 
                 folder.parent = parent;
                 //this._addParentReference(parent);

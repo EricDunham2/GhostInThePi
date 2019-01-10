@@ -277,7 +277,7 @@ DAT.Globe = function(container, opts) {
 };
 
 
-var container = document.getElementsByTagName('globe')[0];
+var container = document.getElementById('network-globe');
 var globe = new DAT.Globe(container);
 
 $(document).ready(function () {

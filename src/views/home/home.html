@@ -6,12 +6,22 @@
             <div id="clock" v-text="time"></div>
         </div>
     </div>
-    <div class="panel-content vhc" style="height: 100%;">
-        <div id="ipAddr" v-text="localAddr"></div>
+    <div class="panel-content vhc" > <!--style="height: 100%;"-->
+        <div class="panel col-100">
+            <div class="panel-header hc">
+                <div id="ipAddr" v-text="localAddr"></div>
+                <!--<div id="macAddr"></div>-->
+            </div>
+            <div class="panel-content vhc">
+                <div id="network-globe"></div> <!--<globe></globe>-->
+            </div>
+        </div>
     </div>
   </div>
-    <!--<globe id="network-globe"></globe>
-    <div id="macAddr"></div>-->
 </div>
 <script src="/templates/home/home.js"></script>
+<script src="/static/scripts/thirdparty/Detector.js"></script>
+<script src="/static/scripts/thirdparty/three.min.js"></script>
+<script src="/static/scripts/thirdparty/Tween.js"></script>
+<script src="/static/scripts/widgets/globe.js"></script>
 {{end}}

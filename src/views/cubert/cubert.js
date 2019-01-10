@@ -1,3 +1,7 @@
+
+var vm = this;
+var ColorPicker = VueColorPicker;
+
 class Pixel {
     constructor(x, y, r, g, b, panel) {
         this.x = x;
@@ -17,9 +21,6 @@ class Pixel {
         this.style = { background: `rgb(${this.r},${this.g},${this.b})` };
     }
 }
-
-var vm = this;
-var ColorPicker = VueColorPicker;
 
 var paintVue = new Vue({
     el: '#paintContent',
@@ -42,29 +43,50 @@ var paintVue = new Vue({
         ColorPicker: ColorPicker
     },
     methods: {
+        setPixelMobile(e) {
+            e.stopPropagation();
+
+            this.mouseDown = true;
+
+            if (!e || !e.touches[0]) { return; }
+
+            var target = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+            if (!target || !target.classList.contains("pixel")) { return; }
+            let pixel = this.pixels[target.getAttribute("x")][target.getAttribute("y")];
+            //var pixel = this.pixels[]
+
+            this.setPixel(pixel);
+            this.mouseDown = false;
+        },
         setPixel(pixel) {
-            //if (!this.mouseDown) { return; }
+            if (!this.mouseDown) { return; }
 
             var rgb = hsl2rgb(this.color.hue, this.color.saturation, this.color.luminosity);
-
             pixel.setColor(rgb.r, rgb.g, rgb.b);
-            paintVue.$forceUpdate();
-            /*if (this.brushSize > 1) {
+
+            if (this.brushSize > 1) {
                 var centerX = pixel.x;
                 var centerY = pixel.y;
                 var brushRadius = (this.brushSize - 1) / 2;
 
-                for (var i = 0; i < brushRadius; i++) {
-                    var px = this.pixels[centerX]
+                for (var i = 0; i <= brushRadius; i++) {
+                    this.pixels[centerX - i][centerY] ? this.pixels[centerX - i][centerY].setColor(rgb.r, rgb.g, rgb.b) : null;
+                    this.pixels[centerX + i][centerY] ? this.pixels[centerX + i][centerY].setColor(rgb.r, rgb.g, rgb.b) : null;
+
+                    for (var j = 0; j <= brushRadius; j++) {
+                        this.pixels[centerX + i][centerY - j] ? this.pixels[centerX + i][centerY - j].setColor(rgb.r, rgb.g, rgb.b) : null;
+                        this.pixels[centerX + i][centerY + j] ? this.pixels[centerX + i][centerY + j].setColor(rgb.r, rgb.g, rgb.b) : null;
+                        this.pixels[centerX - i][centerY - j] ? this.pixels[centerX - i][centerY - j].setColor(rgb.r, rgb.g, rgb.b) : null;
+                        this.pixels[centerX - i][centerY + j] ? this.pixels[centerX - i][centerY + j].setColor(rgb.r, rgb.g, rgb.b) : null;
+                    }
                 }
+            }
 
-            }*/
+            paintVue.$forceUpdate();
         },
-       /* setBrushSize(value) {
-            if (value % 2 === 0 || value > 5) { return; } //
-
-            brushSize = value
-        }*/
+        setBrushSize() {
+            if (this.brushSize % 2 === 0) { this.brushSize = 1; }
+        },
 
        /* _getColor(el) {
             var rgb = el.style.background;
@@ -153,24 +175,6 @@ var paintVue = new Vue({
             function handle(result) {
                 console.log(result);
             }
-        },
-        setSelectedPixel(self) {
-            if (!mouse_down) { return; }
-            self.style.background = document.getElementById("result").style.background;
-
-            if (brushSize > 1) {
-                var id = self.id;
-            }
-            //selectedPixel.push(self);
-        },
-        clear() {
-            var node = document.getElementById("matrix");
-
-            while (node.firstChild) {
-                node.removeChild(node.firstChild);
-            }
-
-            this.createMatrix(this.cols, this.rows);
         },*/
         createMatrix() {
             this.pixels = {};
@@ -187,24 +191,12 @@ var paintVue = new Vue({
         }
     },
     beforeMount() {
-
         this.createMatrix();
-
-        document.body.onmousedown = function() {
-            this.mouseDown = true;
-        }
-        
-        document.body.onmouseup = function() {
-            this.mouseDown = false;
-        }
-
         console.log(this);
     }
 });
 
-
 function hsl2rgb (h, s, l) {
-
     var r, g, b, m, c, x
 
     if (!isFinite(h)) h = 0
@@ -253,5 +245,24 @@ function hsl2rgb (h, s, l) {
     b = Math.round((b + m) * 255)
 
     return { r: r, g: g, b: b }
-
 }
+
+function init() {
+    document.body.onmousedown = function() {
+        paintVue.mouseDown = true;
+    }
+
+    document.body.onmouseup = function() {
+        paintVue.mouseDown = false;
+    }
+
+    document.body.ontouchstart = function() {
+        paintVue.mouseDown = true;
+    }
+
+    document.body.ontouchcancel = function() {
+        paintVue.mouseDown = false;
+    }
+}
+
+init();
