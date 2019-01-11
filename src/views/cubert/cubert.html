@@ -7,62 +7,55 @@
       <div class="panel-header">Configuration</div>
       <div class="panel-content">
         <div class="input-group">
-          <label for="rows" class="input-label" id="rows-label">Rows</label>
-          <input type="text" id="rows-setting" name="rows" class="input-box custom_input" v-model="rows" />
+          <label for="rows" class="dyn-input-label" id="rows-label">Rows</label>
+          <input type="text" id="rows-setting" name="rows" class="dyn-input" v-model="rows" />
         </div>
         <div class="input-group">
-          <label for="cols" class="input-label" id="cols-label">Cols</label>
-          <input type="text" id="cols-setting" name="cols" class="input-box custom_input" v-model="cols" />
+          <label for="cols" class="dyn-input-label" id="cols-label">Cols</label>
+          <input type="text" id="cols-setting" name="cols" class="dyn-input" v-model="cols" />
         </div>
         <div class="input-group">
-          <label for="parallel" class="input-label" id="parallel-label">Parallel</label>
-          <input type="text" id="parallel-setting" name="parallel" class="input-box custom_input" v-model="parallels" />
+          <label for="parallel" class="dyn-input-label" id="parallel-label">Parallel</label>
+          <input type="text" id="parallel-setting" name="parallel" class="dyn-input" v-model="parallels" />
         </div>
         <div class="input-group">
-          <label for="parallel" class="input-label" id="panel-label">Panels</label>
-          <input type="text" placeholder="0,1,2,3" id="panel-input" name="parallel" class="input-box custom_input"
-            v-model="panels" />
+          <label for="parallel" class="dyn-input-label" id="panel-label">Panels</label>
+          <input type="text" placeholder="0,1,2,3" id="panel-input" type="text" name="parallel" class="dyn-input" v-model="panels" />
         </div>
         <div class="input-group">
-          <label for="parallel" class="input-label" id="brush">Brush Size</label>
-          <input type="text" placeholder="1" type="number" min="1" max="3" id="brush" v-on:change="setBrushSize()" name="parallel" class="input-box custom_input"
-            v-model="brushSize" />
+          <label for="parallel" class="dyn-input-label" id="brush">Brush Size</label>
+          <input type="text" placeholder="1" type="number" min="1" max="3" id="brush" v-on:change="setBrushSize()" name="parallel"
+            class="dyn-input" v-model="brushSize" />
         </div>
       </div>
     </div>
     <div class="panel col-50">
-      <div class="panel-content hc">
-        <div id="actions" class="btn-group col-100 vh-content">
-          <span>
-            <label class="header vh-center col-100 no-margin">
-              <span>Actions</span>
-            </label>
-          </span>
-          <div class="vh-center">
-            <div class="btn vh-center l3" v-on:click="createMatrix()">
-              <span class="v-center">New</span>
-            </div>
-            <div class="btn vh-center l3" v-on:click="apply()">
-              <span class="v-center">Apply</span>
-            </div>
-            <div class="btn vh-center l3" v-on:click="test()">
-              <span class="v-center">Gradient</span>
-            </div>
-            <div class="btn vh-center l3" v-on:click="test()">
-              <span class="v-center">Test</span>
-            </div>
-          </div>
+      <div class="panel-header vhc">
+        <span>Actions</span>
+      </div>
+      <div class="panel-content vhc">
+        <div class="btn vhc l3" v-on:click="createMatrix()">
+          <span class="tc">New</span>
         </div>
-        <div id="options" class="btn-group col-100 vh-content">
-          <span>
-            <label class="header vh-center col-100 no-margin">
-              <span>Options</span>
-            </label>
-          </span>
-          <div class="vh-center">
-            <input id="rotating" type="checkbox" role="button" v-on:click="rotate()" />
-            <label for="rotating" class="toggle-lbl vh-center l3"><span class="v-center">Rotate</span></label>
-          </div>
+        <div class="btn vhc l3" v-on:click="apply()">
+          <span class="tc">Apply</span>
+        </div>
+        <div class="btn vhc l3" v-on:click="test()">
+          <span class="tc">Gradient</span>
+        </div>
+        <div class="btn vhc l3" v-on:click="test()">
+          <span class="tc">Test</span>
+        </div>
+      </div>
+      <div id="options" class="btn-group col-100 vh-content">
+        <span>
+          <label class="header vhc col-100 no-margin">
+            <span>Options</span>
+          </label>
+        </span>
+        <div class="vhc">
+          <input id="rotating" type="checkbox" role="button" v-on:click="rotate()" />
+          <label for="rotating" class="toggle-lbl vhc l3"><span class="tc">Rotate</span></label>
         </div>
       </div>
     </div>
@@ -72,7 +65,7 @@
         <div class="panel col-50">
           <div class="panel-header hc">
             <span>Luminance</span>
-            <input type="range" min="0" max="100" v-model="color.luminosity"/>
+            <input type="range" min="0" max="100" v-model="color.luminosity" />
           </div>
           <div class="panel-content hc">
             <color-picker v-bind="color" @input="onInput"></color-picker>
@@ -83,7 +76,8 @@
           <div class="panel-content hc">
             <div id="matrix" class="matrix hc" v-on:touchmove="setPixelMobile($event)">
               <div v-for="row in pixels" class="row hc col-100">
-                <div v-for="pixel in row" v-bind:x="pixel.x" v-bind:y="pixel.y" class="pixel" v-bind:style="pixel.style" :key="pixel.id" v-on:mouseover="setPixel(pixel)"></div>
+                <div v-for="pixel in row" v-bind:x="pixel.x" v-bind:y="pixel.y" class="pixel" v-bind:style="pixel.style"
+                  :key="pixel.id" v-on:mouseover="setPixel(pixel)"></div>
               </div>
             </div>
           </div>

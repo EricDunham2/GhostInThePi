@@ -28,7 +28,7 @@ var paintVue = new Vue({
         rows: 32,
         cols: 32,
         parallels: 1,
-        panels: 0,
+        panels: "0",
         mouseDown: false,
         brushSize: 1,
         pixels: null,
@@ -87,46 +87,41 @@ var paintVue = new Vue({
         setBrushSize() {
             if (this.brushSize % 2 === 0) { this.brushSize = 1; }
         },
-
-       /* _getColor(el) {
-            var rgb = el.style.background;
-            return rgb.replace("rgb(", "").replace(")", "").split(",")
-        },
         _getPixels() {
-            let pixels = [];
+            let pkgPixels = [];
+            let panelsToApply = this.panels.split(",");
 
-            let panel_input = document.getElementById("panel-input").value
-            if (!panel_input) {
-                panel_input = "0"
-            } //TODO set this to number of parallel panels
+            if (!panelsToApply) { panelsToApply = [0]; }
 
-            panels = panel_input.split(",");
-
-            panels.forEach(p => {
+            panelsToApply.forEach(p => {
                 p = parseInt(p);
 
                 for (var x = 0; x < this.cols; x++) {
                     for (var y = 0; y < this.rows; y++) {
-
-                        let id = `c${y}r${x}`;
-                        let pixel = document.getElementById(id);
-                        var rgb = this._getColor(pixel);
-
-                        pixels.push(new Pixel(x + (p * this.cols), y, parseInt(rgb[0]), parseInt(rgb[1]), parseInt(rgb[2])));
+                        var mirrorPixel = this.pixels[x][y];
+                        pkgPixels.push(new Pixel(x + (p * this.cols), y, mirrorPixel.r, mirrorPixel.g, mirrorPixel.b));
                     }
                 }
             });
-            return pixels;
+
+            return pkgPixels;
         },
         apply() {
-            var pixels = JSON.stringify(this._getPixels());
+            var pkgPixels = JSON.stringify(this._getPixels());
 
-            //Use axios
-            REST("POST", `http://${self.cubertEndpoint}/apply`, false, pixels).then(handle, handle)
-
-            function handle(result) {
-                console.log(result)
+            try {
+                axios
+                    .post(`http://${self.cubertEndpoint}/apply`, pkgPixels)
+                    .then(this._responseHandler);
+            } catch (err) {
+                toastr(err, "error", 5000)
             }
+        },
+        _responseHandler(response) {
+            if (!this._validateResponse(response)) { toastr(JSON.stringify(response), "error", 5000) }
+        },
+        _validateResponse(response) {
+            return response && response.status === 200 && response.data
         },
         test() {
             var test = JSON.stringify([{
@@ -159,23 +154,17 @@ var paintVue = new Vue({
                 }
             ]);
 
-            //Use axios
-            REST("POST", `http://${self.cubertEndpoint}/test`, false, test).then(handle, handle)
-
-            function handle(result) {
-                console.log(result)
-            }
+            axios
+                .post(`http://${self.cubertEndpoint}/test`, test)
+                .then(this._responseHandler);
         },
         rotate() {
             var delay = 100;
 
-            //Use axios
-            REST("POST", `http://${self.cubertEndpoint}/rotate`, false, delay).then(handle, handle);
-
-            function handle(result) {
-                console.log(result);
-            }
-        },*/
+            axios
+                .post(`http://${self.cubertEndpoint}/rotate`, delay)
+                .then(this._responseHandler);
+        },
         createMatrix() {
             this.pixels = {};
 

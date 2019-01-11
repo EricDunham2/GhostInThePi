@@ -90,6 +90,32 @@ func init_routes() {
 		log_request(r)
 		i.ExecuteTemplate(w, "baseHTML", "")
 	})
+
+	router.HandleFunc("/music", func(w http.ResponseWriter, r *http.Request) {
+		tmpl := []string{"./src/views/app.html","./src/views/music/music.html"}
+		i, err := template.New("").ParseFiles(tmpl...)
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		log_request(r)
+		i.ExecuteTemplate(w, "baseHTML", "")
+	})
+
+	router.HandleFunc("/torrent", func(w http.ResponseWriter, r *http.Request) {
+		tmpl := []string{"./src/views/app.html","./src/views/torrent/torrent.html"}
+		i, err := template.New("").ParseFiles(tmpl...)
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		log_request(r)
+		i.ExecuteTemplate(w, "baseHTML", "")
+	})
 }
 
 

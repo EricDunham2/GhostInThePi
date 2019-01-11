@@ -41,17 +41,18 @@ function post(url = ``, data = {}) {
 
 $(function () {
     $(".input-group input").focus(function () {
-
         $(this).parent(".input-group").each(function () {
             $("label", this).css({
                 "font-size": "13px",
+                "color": "#04f886"
             })
-
         })
     }).blur(function () {
-        if ($(this).val() == "") {
+        if ($(this).val() === "") {
 
-            $(this).css({ "background": "#111", })
+            $(this).css({ 
+                "background": "#333333",
+            })
 
             $(this).parent(".input-group").each(function () {
                 $("label", this).css({
@@ -59,23 +60,37 @@ $(function () {
                 })
             });
         } else {
-            $(this).css({ "background": "#212121", })
+            $(this).css({ 
+                "box-shadow": "none",
+                "background": "#111111",
+            })
+
+            $(this).parent(".input-group").each(function() {
+                $("label", this).css({
+                    "color": "#CC14AB"
+                })
+            })
         }
     });
+
+    if ($(".input-group input").val() !== "") {
+        $(".input-group input").focus();
+        $(".input-group input").blur();
+    }
 });
 
 function toastr(message, type, timeout) {
     var body = document.getElementsByTagName("body")[0];
 
     var t = document.createElement("div");
-    t.setAttribute("class", "toast");
+    t.setAttribute("class", `toast ${type} vhc tc`);
     t.innerHTML = message;
 
     body.appendChild(t);
 
     setTimeout(function () {
         removeToast(t);
-    }, 3000)
+    }, timeout)
 }
 
 
@@ -126,23 +141,5 @@ function fadeIn(el) {
                 //body.removeChild(el);
             }
         }, 100);
-    });
-}
-
-function REST(type, endpoint, async, data) {
-    return new Promise((resolve, reject) => {
-        let request = new XMLHttpRequest();
-        request.open(type, endpoint, async);
-    
-        request.onload = function() {
-            let data = this.response.replace(/"/g,"");
-            resolve(data);
-        }
-
-        if (type === "POST") {
-            request.send(data);
-        } else {
-            request.send();
-        }
     });
 }

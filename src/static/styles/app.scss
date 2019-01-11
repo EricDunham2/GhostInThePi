@@ -38,6 +38,16 @@ body {
   overflow-x: hidden;
 }
 
+.error {
+  background: $action-danger;
+  color:black;
+}
+
+.success {
+  background: $action-success;
+  color: black;
+}
+
 .l2 {
   background: $second-layer;
   box-shadow: 5px 5px 10px $shadow;

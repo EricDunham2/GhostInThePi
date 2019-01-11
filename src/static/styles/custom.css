@@ -1,44 +1,10 @@
-body {
-    background: black;
-    margin: 0;
-    font-family: Consolas, "Proxima Nova", sans-serif;
-    color: #4fffb4;
-  }
-  
   .background-box {
     background: rgba(21, 21, 21, 0.7);
-  }
-  
-  .header {
-    width: 150px;
-    height: auto;
-    font-size: 25px;
-    color: #4fffb4;
-    position: relative;
-    top: 10px;
-    margin-left: 10px;
-    padding: 10px;
   }
   
   .row {
     display: inline-block;
     margin: 0px;
-  }
-  
-  .vh-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .h-center {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .v-center {
-    display: flex;
-    align-items: center;
   }
   
   .trim-content-box {
@@ -65,11 +31,6 @@ body {
     margin: 0;
   }
 
-  .btn-group {
-    width:100%;
-    height:30%;
-  }
-  
   .btn {
     width:90px;
     height:35px;
@@ -83,179 +44,15 @@ body {
     background: greenyellow;
     cursor:pointer;
   }
-  
-  input[type=checkbox] {
-     display: none;
-  }
-  
-  input:checked ~ .toggle-lbl {
-      color:#111;
-      background:greenyellow;
-  }
-  
-  .toggle-lbl {
-      width:90px;
-      height:35px;
-      background:#111;
-      margin:5px;
-      font-weight:bold;
-      cursor:pointer;
-  }
 
-  .controls {
-    display:inline-block;
-    flex-grow:1;
-    width:400px;
-    height:250px;
-    position: relative;
-    margin:0;
-  }
-
-  .no-margin {
-    margin:0;
-  }
-  
-  /*button {
-      width:150px;
-      height:50px;
-      font-size: 25px;
-      background: #111;
-      cursor: pointer;
-  }
-
-  button.trim-content-box:hover {
-    background: #4fffb4;
-    color: #111;
-  }
-  
-  .button-container {
-      display:flex;
-      flex-grow: 1;
-  }*/
-  
-  .portfolio {
-    background-color: #1b1a21;
-    overflow-x: hidden;
-    position: absolute;
-    top: 0;
-    left: 250px;
-    right: 0;
-    bottom: 0;
-    -moz-transition: left 0.5s ease;
-    transition: left 0.5s ease;
-  }
-  
-  /*? Change these to an id for the sidebar*/
-  input[type="checkbox"] {
-    display: none;
-  }
-  
-  input:checked ~ .portfolio {
-    left: 50;
-  }
-  
-  input:checked ~ label {
-    left: 0;
-  }
-  
-  .h-100 {
-    height: 100%;
-  }
-  
-  .settings-button {
-    z-index: 2;
-    position: absolute;
-    top: 0;
-    width: 50px;
-    left: 200px;
-    background-color: #111;
-    -moz-transition: left 0.5s ease;
-    transition: left 0.5s ease;
-    margin: 0 auto;
-  }
-  
-  .settings-button:hover {
-    color: deeppink;
-  }
-  
-  .setting {
-    height: 65px;
-  }
-  
-  .settings-header {
-    transform: rotate(270deg);
-    position: relative;
-    top: 50%;
-    font-size: 30px;
-  }
-  
-  .frameless-input {
-    background-color: #191919;
-    border: 0px solid;
-    height: 20px;
-    width: 160px;
-    color: #4fffb4;
-    font-weight: bold;
-  }
-  
-  .frameless-input:focus {
-    outline: none;
-  }
-  .sidebar {
-    background-color: #212121;
-    width: 200px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    height: 100vh;
-  }
-  
-  /*? Add width 100 class and remove width 100% from css*/
-  
-  .settings-label {
-    float: right;
-    display: flex;
-    margin: 0;
-    color: #4fffb4;
-    height: 65px;
-    padding: 10px;
-    width: 130px;
-    align-items: center;
-    padding: 0;
-    justify-content: center;
-    position: absolute;
-    width: 100%;
-    padding: 0 10px;
-  }
-
-  .nav-redirect {
-    text-decoration: none;
-    color: #4fffb4;
-    font-size: 25px;
-  }
-  
-  .nav-redirect:hover {
-    color: deeppink; /*greenyellow*/
-  }
-  
-  .settings-image {
-    height: 30px;
-    font-size: 45px;
-    float: left;
-    padding: 5px;
-    position: relative;
-    left: -70px;
-  }
-    
-  ::-webkit-scrollbar {
+  /*::-webkit-scrollbar {
     width: 0px;
     background: transparent;
   }
   
   ::-webkit-scrollbar-thumb {
     background: transparent;
-  }
+  }*/
   
   clock-widget {
     font-size: 65px;
@@ -268,39 +65,12 @@ body {
     font: 13px/20px Arial, sans-serif;
     cursor: auto;
   }
-  
-  .c-input {
-      text-align: center;
-  }
-  
-  .w-100 {
-    width: 100%;
-  }
-  
-  .w-80 {
-    width: 80%;
-  }
-  
-  .h-80 {
-    height: 80%;
-  }
-  
-  .h-50px {
-    height: 50px;
-  }
-  
-  /*? Add w-80 class and remove */
-  
+
   #search-form {
     position: absolute;
     top: 0;
   }
-  
-  .grey-input {
-    background: #212121;
-  }
-  
-  /* Make this into a class */
+
   canvas {
     position: inherit !important;
   }
@@ -316,58 +86,6 @@ body {
     bottom: 10px;
   }
   
-  /* Take the justify content out and use the center-content class */
-  .media-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    top: 150px;
-}
-
-.media-file {
-    color:darkslategray;
-    width:120px;
-    height:120px;
-    display:inline;
-    overflow-x: hidden;
-    text-align: center;
-    justify-content:center;
-    align-items:center;
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .clickable {
-    cursor: pointer;
-  }
-  
-  /*? Make this into a different class than icon, name is to generic*/
-  .icon {
-    font-size: 120px !important;
-  }
-  
-  .c_overlay {
-    width: 120px;
-    height: 20px;
-    text-align: left;
-    color: #4fffb4;
-    position: relative;
-    font-size: 15px;
-    white-space: wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: bold;
-    bottom: -20;
-    text-align: center;
-    margin: 0;
-  }
-  
-  .c_overlay:hover {
-    overflow: visible;
-  }
-  
   #castButton {
     width: 25px;
     height: 25px;
@@ -375,29 +93,7 @@ body {
     vertical-align: middle;
     display: inline;
     --disconnected-color: red;
-    --connected-color: #34caa9;
-  }
-  
-  .noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                                      supported by Chrome and Opera */
-  }
-  
-  .play-modal {
-    background: black;
-    width: 50vw;
-    height: 50vh;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    position: relative;
+    --connected-color: greenyellow;
   }
   
   .modal-close {
@@ -551,276 +247,16 @@ body {
     -webkit-text-fill-color: #4fffb4 !important;
   }
   
-  .custom_input {
-    background: rgba(21, 21, 21, 0.8);
-    border: 0;
-    height: 40px;
-    width: 350px;
-    color: #4fffb4;
-    font-size: 18px;
-    margin: auto 0;
-    padding: 10px 0 0px 10px;
-    cursor: pointer;
-  }
-  
-  .custom_input:focus {
-    outline: none;
-  }
-  
-  .input-label {
-    transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    position: absolute;
-    font-size: 18px;
-    padding: 0 0 0 10px;
-    cursor: pointer;
-  }
-  
-  .input-group {
-    width: 350px;
-    margin: 10px auto;
-    margin-top: 10px;
-  }
-  
-  #contents {
-    width: 80%;
-  }
-  
-  @media only screen and (max-width: 500px) {
-    #inputPath {
-      width: 80%;
-    }
-    #file-browser {
-      left: 30px;
-    }
-  }
-  
-
-
-
-/*New*/
-
-
-* {
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-.container_color_picker {
-    width: 200px;
-    height: 280px;
-    background: #333;
-    position: relative;
-    box-shadow: 1px 1px 17px;
-    margin: 0 50px 0 0;
-    float: left;
-}
-
-.resize {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 2.5%;
-    height: 2%;
-    background: rgba(0,0,0,.4);
-    z-index: 100;
-    box-shadow: -1px -1px 17px;
-    cursor: nw-resize;
-}
-
-
-
-.picking_color {
-    height: 61%;
-    width: 100%;
-    padding: 30px 0 0;
-    display: inline-flex;
-    justify-content: center;
-    position: absolute;
-    right: 0;
-    left: 0;
-}
-
-.color {
-    position: absolute;
-    left: -20000px;
-}
-
-.result, .copied {
-    width: 100%;
-    height: 50px;
-    background: #FFF;
-    text-align: center;
-    color: white;
-    font-size: 25px;
-    display: flex;
-    justify-content:center;
-    align-items:center;
-    position: absolute;
-    bottom: 0;
-    cursor: pointer;
-    transition: font-size .15s ease-in-out;
-    z-index: 10;
-    text-shadow: 1px 1px 17px #000;
-    font-weight: bold;
-}
-
-.copied {
-    z-index: -10;
-    font-size: 0px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.copied-active {
-    animation: copied 1s ease-in-out 1;
-}
-
-.switch-colors-system {
-    position: absolute;
-    top: 73%;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    overflow: hidden;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    height: 20px;
-}
-
-.colors-system {
-    width: 0;
-    position: absolute;
-    color: white;
-    font-family: sans-serif;
-    font-size: 1.4em;
-    left: 33%;
-}
-
-.colors-system span {
-    transition: all .25s ease-in-out;
-    position: absolute;
-}
-
-/* start switch colors system button */
-.switch-colors-system .switch {
-    display: inline-block;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    cursor: pointer;
-    position: absolute;
-    z-index: 10;
-}
-
-.switch-colors-system .left {
-    left: 0;
-    border-right: 20px solid #aaa;
-}
-
-.switch-colors-system .right {
-    right: 0;
-    border-left: 20px solid #aaa;
-}
-
-.switch-colors-system .right:hover {
-    border-left: 20px solid #888;
-}
-
-.switch-colors-system .left:hover {
-    border-right: 20px solid #888;
-}
-/* end switch colors system button */
-
-.saturation, .hue {
-    height: 100%;
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    margin: 0 3%;
-    user-select: none;
-}
-
-.saturation {
-    width: 75%;
-    background: #f00;
-}
-
-.hue {
-    width: 5%;
-    background: linear-gradient(to bottom, #F00 0%, #FF0 17%, #0F0 33%, #0FF 50%, #00F 67%, #F0F 83%, #F00 100%);
-}
-
-.bw_g {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom,rgba(255,255,255,00),black),linear-gradient(to left,rgba(255,255,255,00),white);  
-}
-
-.pointer {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #FFF;
-    border: 4px solid #FFF;
-    box-shadow: .5px .5px 10px black;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    transition:width .25s ease-in-out, height .25s ease-in-out;
-    z-index: 10;
-}
-
-.pointer[id="hue_pointer"] {
-    left: 50%;
-    background: #F00;
-}
-
-.container_color_picker .picking_color .active {
-    width: 15px;
-    height: 15px;
-}
-
-@keyframes copied {
-    0% {
-        z-index: 20;
-        line-height: 325%; 
-        
-    }
-    25% {
-        font-size: 3.5em;
-    }
-    100% {
-        z-index: 19;
-        font-size: 3.5em;
-        line-height: 325%;
-    }
-}
-
 .row {
     display: inline-block;
     margin: 0px;
     height:fit-content !important;
 }
 
-.matrix-container {
-    position: relative;
-    /* left: 23%; */
-    top: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .matrix {
-    /* position: relative; */
-    /* left: 100px; */
     line-height: 0px;
     float: left;
-    /* margin: 0; */
     z-index: 100;
     justify-content: center;
     align-items: center;
@@ -833,16 +269,6 @@ body {
   border-radius:0px;
   margin:1px;
   float:left;
-}
-
-.content-header {
-    position: absolute;
-    top: 10px;
-}
-
-.content-footer {
-    position: absolute;
-    bottom: 10px;
 }
 
 .toast {
@@ -860,10 +286,15 @@ body {
   z-index: 100;
 }
 
-.warning {
-  background: yellow;
-}
+
+/*Remove these */
 
 .error {
   background: indianred;
+  color:black;
+}
+
+.success {
+  background:mediumspringgreen;
+  color: black;
 }
