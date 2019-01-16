@@ -20,6 +20,7 @@ new Vue({
 
             try {
                 this.media = JSON.parse(response.data);
+                console.log(this.media);
             } catch(err) {
                 console.log(err);
                 return;

@@ -21,6 +21,16 @@ vm.index = new Vue({
         _setConfig: function(response) {
             if (!response || !response.data) { return; }
             config = response.data;
+
+            if (config["camera"]) {
+                Vue.prototype.$cameraIp = response.data.camera;
+                this.options.camera = true;
+            }
+
+            if (config["cubert"]) {
+                Vue.prototype.$cubertIp = response.data.cubert;
+                this.options.cubert = true;
+            }
         },
         _getIpAddress: function() {
             axios
