@@ -54,7 +54,7 @@
           </label>
         </span>
         <div class="vhc">
-          <input id="rotating" type="checkbox" role="button" v-on:click="rotate()" />
+          <input id="rotating" type="checkbox" role="button" class="toggle-btn" v-on:click="rotate()" />
           <label for="rotating" class="toggle-lbl vhc l3"><span class="tc">Rotate</span></label>
         </div>
       </div>
@@ -63,9 +63,11 @@
       <div class="panel-header"></div>
       <div class="panel-content hc">
         <div class="panel col-50">
-          <div class="panel-header hc">
-            <span>Luminance</span>
-            <input type="range" min="0" max="100" v-model="color.luminosity" />
+          <div class="panel-content vhc col-100" style="height:50px;">
+            <div>Luminance</div>
+            <div class="range-slider hc">
+              <input class="range-slider__range" type="range" value="100" min="0" max="100" v-model="color.luminosity">
+            </div>
           </div>
           <div class="panel-content hc">
             <color-picker v-bind="color" @input="onInput"></color-picker>
