@@ -7,7 +7,7 @@ new Vue({
         selectedFolder: null,
         selectedFile: null,
         mediaPath: null,
-        searchPath: ""
+        searchPath: "/media/pi/MJRO1801/"
     },
     methods: {
         _getMedia(path) {
@@ -39,8 +39,8 @@ new Vue({
 
             parent.Branches.forEach(folder => {
                 //if (!folder.parent) { return; }
-
                 folder.parent = parent;
+		folder.Name = folder.Name.replace(folder.parent.Path, "");
                 //this._addParentReference(parent);
             })
         },

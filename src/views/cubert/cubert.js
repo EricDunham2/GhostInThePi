@@ -44,7 +44,7 @@ var paintVue = new Vue({
     },
     methods: {
         setPixelMobile(e) {
-            e.stopPropagation();
+            e.preventDefault();
 
             this.mouseDown = true;
 
@@ -111,7 +111,7 @@ var paintVue = new Vue({
 
             try {
                 axios
-                    .post(`http://${self.cubertEndpoint}/apply`, pkgPixels)
+                    .post(`http://${Vue.prototype.$cubertIp}/apply`, pkgPixels)
                     .then(this._responseHandler);
             } catch (err) {
                 toastr(err, "error", 5000)
@@ -155,14 +155,14 @@ var paintVue = new Vue({
             ]);
 
             axios
-                .post(`http://${self.cubertEndpoint}/test`, test)
+                .post(`http://${Vue.prototype.$cubertIp}/test`, test)
                 .then(this._responseHandler);
         },
         rotate() {
             var delay = 100;
 
             axios
-                .post(`http://${self.cubertEndpoint}/rotate`, delay)
+                .post(`http://${Vue.prototype.$cubertIp}/rotate`, delay)
                 .then(this._responseHandler);
         },
         createMatrix() {
