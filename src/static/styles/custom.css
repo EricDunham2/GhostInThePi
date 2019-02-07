@@ -39,11 +39,11 @@
     font-weight:bold;
   }
   
-  .btn:hover {
+  /*.btn:hover {
     color:#111; 
     background: greenyellow;
     cursor:pointer;
-  }
+  }*/
 
   /*::-webkit-scrollbar {
     width: 0px;

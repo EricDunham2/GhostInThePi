@@ -1,78 +1,63 @@
 {{define "contentHTML"}}
 <div class="flex-container col-100 hc" id="mediaContent">
   <div class="panel col-90">
-    <div class="panel-header">
-      <!--<div id="search-form" class="c-input w-80"> 
-                <div class="c-input" style="display:none;">File Path:</div>
-                <input id="inputPath" class="c-input frameless-input grey-input w-100" style="display:none;">
-            </div>-->
+    <div class="panel-content col-100" style="margin: 0 auto; width: 80%;" v-if="!selectedFolder.parent">
+        <div class="col-100 tc" style="color:#1abc9c" >Search</div>
+        <input class="col-100 dyn-input tc" style="padding:0; height: 30px; font-size: 25px; background: #222;" v-model="searchTerm"  />
     </div>
     <div class="panel-content col-100 hc" id="file-browser">
-      <div
-        class="tile-md l3 clickable no-touch-table action"
-        v-on:click="selectFolder(selectedFolder.parent)"
-        v-if="selectedFolder.parent"
-        v-cloak
-      >
+      <div class="tile-md l3 clickable no-touch-table action" v-on:click="selectFolder(selectedFolder.parent)" v-if="selectedFolder.parent"
+        v-cloak>
         <div class="panel col-100">
-          <div class="panel-header col-80"><div>..</div></div>
+          <div class="panel-header col-80">
+            <div>..</div>
+          </div>
           <div class="panel-content hc">
             <i class="material-icons icon-md vhc">arrow_back</i>
           </div>
         </div>
       </div>
-      <div
-        class="tile-md l3 clickable no-touch-table"
-        v-for="folder in selectedFolder.Branches"
-        v-on:click="selectFolder(folder)"
-        v-cloak
-      >
+      <div class="tile-md l3 clickable no-touch-table" v-if="searchTerm == ''" v-for="folder in selectedFolder.Branches" v-on:click="selectFolder(folder)"
+        v-cloak>
         <div class="panel col-100">
           <div class="panel-header col-80 hc">
-            <div
-              style="color:crimson; margin-top: 5px; "
-              v-text="folder.Name"
-            ></div>
+            <div style="color:#1abc9c; margin-top: 5px; " v-text="folder.Name"></div>
           </div>
           <div class="panel-content hc">
             <i class="material-icons icon-md vhc">folder</i>
           </div>
         </div>
       </div>
-      <div
-        class="tile-md l3 clickable no-touch-table"
-        v-for="file in selectedFolder.Nodes"
-        v-on:click="selectFile(file)"
-        v-cloak
-      >
+      <div class="tile-md l3 clickable no-touch-table" v-if="searchTerm == ''" v-for="file in selectedFolder.Nodes" v-on:click="selectFile(file)"
+        v-cloak>
         <div class="panel col-100">
           <div class="panel-header col-80 hc">
-            <div
-              v-text="file.Name"
-              style="color:crimson; margin-top: 5px;"
-            ></div>
+            <div v-text="file.Name" style="color:#1abc9c; margin-top: 5px;"></div>
           </div>
           <div class="panel-content hc">
             <i class="material-icons icon-md vhc">movie</i>
           </div>
         </div>
       </div>
+      <div class="tile-md l3 clickable no-touch-table" v-if="searchTerm != ''" v-for="file in media.search" v-on:click="selectFile(file)"
+      v-cloak>
+      <div class="panel col-100">
+        <div class="panel-header col-80 hc">
+          <div v-text="file.Name" style="color:#1abc9c; margin-top: 5px;"></div>
+        </div>
+        <div class="panel-content hc">
+          <i class="material-icons icon-md vhc">movie</i>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 
   <template v-if="selectedFile" v-cloak>
-    <div
-      class="flex-container col-100"
-      style="height:100vh; position:absolute; top:40; left:0;"
-    >
-      <div class="modal-close" v-on:click="closeModal()">x</div>
+    <div class="flex-container col-100" style="height:100vh; position:absolute; top:40; left:0;">
+      <div class="modal-close"  v-on:click="closeModal()">x</div>
       <div class="media-player col-100 l2">
-        <video
-          class="video-player"
-          id="video"
-          :src="selectedFile.Video"
-          controls
-        ></video>
+        <video class="video-player" id="video" :src="selectedFile.Video" controls></video>
         <!--<div class="player-controls">
           <div class="player-buttons">
             <button id="play" onclick="playClick()" class="video-control">

@@ -23,9 +23,13 @@
           <input type="text" placeholder="0,1,2,3" id="panel-input" type="text" name="parallel" class="dyn-input" v-model="panels" />
         </div>
         <div class="input-group">
-          <label for="parallel" class="dyn-input-label" id="brush">Brush Size</label>
+          <label for="brush" class="dyn-input-label" id="brush-label">Brush Size</label>
           <input type="text" placeholder="1" type="number" min="1" max="3" id="brush" v-on:change="setBrushSize()" name="parallel"
             class="dyn-input" v-model="brushSize" />
+        </div>
+        <div class="input-group" >
+          <label for="sHue" class="dyn-input-label" id="sHue-label">Stop Hue</label>
+          <input type="text" placeholder="1" type="number" min="0" max="360" id="sHue" name="sHue" class="dyn-input" v-model="stopHue" />
         </div>
       </div>
     </div>
@@ -56,6 +60,10 @@
         <div class="vhc">
           <input id="rotating" type="checkbox" role="button" class="toggle-btn" v-on:click="rotate()" />
           <label for="rotating" class="toggle-lbl vhc l3"><span class="tc">Rotate</span></label>
+        </div>
+        <div class="vhc">
+          <input id="graBrush" type="checkbox" role="button" class="toggle-btn" v-model="gBrush"/>
+          <label for="graBrush" class="toggle-lbl vhc l3"><span class="tc">Gradient Brush</span></label>
         </div>
       </div>
     </div>

@@ -79,14 +79,17 @@ body {
 .navbar-item:hover {
   background: #e4e8d6;
   color: #111111;
+  height: calc(100% - 2px);
   border-bottom: 2px solid #04f886;
 }
 
 .navbar-item.active {
+  height: calc(100% - 2px);
   border-bottom: 2px solid #04f886;
 }
 
 .navbar-item.active:hover {
+  height: calc(100% - 2px);
   border-bottom: 2px solid #CC14AB;
 }
 
@@ -112,7 +115,6 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  align-content: baseline;
   flex-wrap: wrap;
 }
 
@@ -585,10 +587,10 @@ select {
   text-transform: uppercase;
 }
 
-.panel-header:hover {
+/*.panel-header:hover {
   white-space: pre-wrap;
   overflow: visible;
-}
+}*/
 
 .panel-content {
   width: 100%;
@@ -677,6 +679,7 @@ i.icon-xs {
   }
 
   .navbar-icon:hover {
+    height: calc(100% - 2px);
     color: #CC14AB;
   }
 

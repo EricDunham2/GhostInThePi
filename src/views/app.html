@@ -62,16 +62,16 @@
             </div>
         </div>
         <div class="navbar-navigation vhc" v-cloak>
-            <a href="/" class="navbar-item vhc">
+            <a href="/" class="navbar-item vhc" v-on:click="setActive">
                 <div class="vhc">Home</div>
             </a>
-            <a href="/media" class="navbar-item vhc">
+            <a href="/media" class="navbar-item vhc" v-on:click="setActive">
                 <div class="vhc">Media</div>
             </a>
-            <a href="/CUBErt" class="navbar-item vhc" v-if="options.cubert">
+            <a href="/CUBErt" class="navbar-item vhc" v-if="options.cubert" v-on:click="setActive(e)">
                 <div class="vhc">CUBErt</div>
             </a>
-            <a href="/camera" class="navbar-item vhc" v-if="options.camera">
+            <a href="/camera" class="navbar-item vhc" v-if="options.camera" v-on:click="setActive(event)">
                 <div class="vhc">Camera</div>
             </a>
         </div>

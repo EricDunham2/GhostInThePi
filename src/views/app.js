@@ -13,7 +13,6 @@ vm.index = new Vue({
     },
     methods: {
         _getConfig: function() {
-            console.log("Hello")
             axios
                 .get("/config")
                 .then(this._setConfig)
@@ -40,6 +39,10 @@ vm.index = new Vue({
         _setIpAddr: function(response) {
             if (!response || !response.data) { return; }
             Vue.prototype.$ipAddress = response.data.replace(/"/g,"");
+        },
+        setActive: function(event) {
+            Array.from(document.getElementsByClassName("navbar-navigation")[0].children).forEach(item => item.classList.remove("active"));
+            event.target.parentElement.classList.add("active");
         }
     },
     beforeMount() {

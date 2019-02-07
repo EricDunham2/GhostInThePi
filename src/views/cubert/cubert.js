@@ -32,8 +32,10 @@ var paintVue = new Vue({
         mouseDown: false,
         brushSize: 1,
         pixels: null,
+        gBrush: false,
+        stopHue: 0,
         color: {
-            hue: 50,
+            hue: 0,
             saturation: 100,
             luminosity: 50,
             alpha: 1
@@ -61,23 +63,46 @@ var paintVue = new Vue({
         setPixel(pixel) {
             if (!this.mouseDown) { return; }
 
-            var rgb = hsl2rgb(this.color.hue, this.color.saturation, this.color.luminosity);
-            pixel.setColor(rgb.r, rgb.g, rgb.b);
+            var h = this.color.hue;
 
+            if (this.gBrush) { h = this.gradientBrush(pixel); }
+
+            var rgb = hsl2rgb(h, this.color.saturation, this.color.luminosity);
+
+
+            pixel.setColor(rgb.r, rgb.g, rgb.b);
+    
             if (this.brushSize > 1) {
                 var centerX = pixel.x;
                 var centerY = pixel.y;
                 var brushRadius = (this.brushSize - 1) / 2;
 
                 for (var i = 0; i <= brushRadius; i++) {
-                    this.pixels[centerX - i][centerY] ? this.pixels[centerX - i][centerY].setColor(rgb.r, rgb.g, rgb.b) : null;
-                    this.pixels[centerX + i][centerY] ? this.pixels[centerX + i][centerY].setColor(rgb.r, rgb.g, rgb.b) : null;
+
+                    this.pixels[centerX - i] && this.pixels[centerX - i][centerY] ? this.pixels[centerX - i][centerY].setColor(rgb.r, rgb.g, rgb.b) : null;
+                    this.pixels[centerX + i] && this.pixels[centerX + i][centerY] ? this.pixels[centerX + i][centerY].setColor(rgb.r, rgb.g, rgb.b) : null;
 
                     for (var j = 0; j <= brushRadius; j++) {
-                        this.pixels[centerX + i][centerY - j] ? this.pixels[centerX + i][centerY - j].setColor(rgb.r, rgb.g, rgb.b) : null;
-                        this.pixels[centerX + i][centerY + j] ? this.pixels[centerX + i][centerY + j].setColor(rgb.r, rgb.g, rgb.b) : null;
-                        this.pixels[centerX - i][centerY - j] ? this.pixels[centerX - i][centerY - j].setColor(rgb.r, rgb.g, rgb.b) : null;
-                        this.pixels[centerX - i][centerY + j] ? this.pixels[centerX - i][centerY + j].setColor(rgb.r, rgb.g, rgb.b) : null;
+
+                        if (this.pixels[centerX + i]) {
+                            if (this.pixels[centerX + i][centerY + j]) {
+                                this.pixels[centerX + i][centerY + j].setColor(rgb.r, rgb.g, rgb.b)
+                            }
+
+                            if (this.pixels[centerX + i][centerY - j]) {
+                                this.pixels[centerX + i][centerY - j].setColor(rgb.r, rgb.g, rgb.b)
+                            }
+                        }
+
+                        if (this.pixels[centerX - i]) {
+                            if (this.pixels[centerX - i][centerY + j]) {
+                                this.pixels[centerX - i][centerY + j].setColor(rgb.r, rgb.g, rgb.b)
+                            }
+
+                            if (this.pixels[centerX - i][centerY - j]) {
+                                this.pixels[centerX - i][centerY - j].setColor(rgb.r, rgb.g, rgb.b)
+                            }
+                        }
                     }
                 }
             }
@@ -86,6 +111,14 @@ var paintVue = new Vue({
         },
         setBrushSize() {
             if (this.brushSize % 2 === 0) { this.brushSize = 1; }
+        },
+        gradientBrush(pixel) {
+            var hueDelta = this.stopHue - this.color.hue;
+            var newHue = pixel.x * (hueDelta / this.rows) + this.color.hue;
+
+            if (newHue > 360) { newHue = newHue - 360; }
+
+            return newHue;
         },
         _getPixels() {
             let pkgPixels = [];

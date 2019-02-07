@@ -165,6 +165,7 @@ border: 0;
 }
 
 .navbar-icon:hover {
+  height: calc(100% - 2px);
   color: $accent-secondary;
 }
 
@@ -195,15 +196,18 @@ border: 0;
 .navbar-item:hover {
   background: $font-secondary;
   color: $second-layer;
+  height: calc(100% - 2px);
   border-bottom: 2px solid $accent-primary;
   //box-shadow: 0px 2px 10px $shadow
 }
 
 .navbar-item.active {
+  height:calc(100% - 2px);
   border-bottom: 2px solid $accent-primary;
 }
 
 .navbar-item.active:hover {
+  height:calc(100% - 2px);
   border-bottom: 2px solid $accent-secondary;
 }
 
@@ -229,7 +233,6 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  align-content: baseline;
   flex-wrap: wrap;
 }
 
@@ -633,10 +636,10 @@ select {
   text-transform: uppercase;
 }
 
-.panel-header:hover {
+/*.panel-header:hover {
   white-space: pre-wrap;
   overflow: visible;
-}
+}*/
 
 .panel-content {
   width: 100%;
