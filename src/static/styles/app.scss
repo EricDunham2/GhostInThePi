@@ -337,7 +337,12 @@ a {
   }
 }
 
+.btn {
+  cursor: pointer;
+}
+
 .toggle-btn[type="checkbox"] {
+  cursor: pointer;
   display: none;
 }
 

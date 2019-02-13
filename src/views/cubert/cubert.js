@@ -86,20 +86,45 @@ var paintVue = new Vue({
 
                         if (this.pixels[centerX + i]) {
                             if (this.pixels[centerX + i][centerY + j]) {
+                               
+                                if (this.gBrush) {
+                                    h = this.gradientBrush(this.pixels[centerX + i][centerY + j]);
+                                    rgb = hsl2rgb(h, this.color.saturation, this.color.luminosity);
+                                }
+
                                 this.pixels[centerX + i][centerY + j].setColor(rgb.r, rgb.g, rgb.b)
                             }
 
                             if (this.pixels[centerX + i][centerY - j]) {
+
+                                if (this.gBrush) {
+                                    h = this.gradientBrush(this.pixels[centerX + i][centerY - j]);
+                                    rgb = hsl2rgb(h, this.color.saturation, this.color.luminosity);
+                                }
+
                                 this.pixels[centerX + i][centerY - j].setColor(rgb.r, rgb.g, rgb.b)
                             }
                         }
 
                         if (this.pixels[centerX - i]) {
                             if (this.pixels[centerX - i][centerY + j]) {
+
+                                if (this.gBrush) {
+                                    h = this.gradientBrush(this.pixels[centerX - i][centerY + j]);
+                                    rgb = hsl2rgb(h, this.color.saturation, this.color.luminosity);
+                                }
+
                                 this.pixels[centerX - i][centerY + j].setColor(rgb.r, rgb.g, rgb.b)
+
                             }
 
                             if (this.pixels[centerX - i][centerY - j]) {
+
+                                if (this.gBrush) {
+                                    h = this.gradientBrush(this.pixels[centerX - i][centerY - j]);
+                                    rgb = hsl2rgb(h, this.color.saturation, this.color.luminosity);
+                                }
+
                                 this.pixels[centerX - i][centerY - j].setColor(rgb.r, rgb.g, rgb.b)
                             }
                         }
@@ -213,8 +238,12 @@ var paintVue = new Vue({
         }
     },
     beforeMount() {
+        Vue.prototype.$cubertActive = true;
         this.createMatrix();
         console.log(this);
+    },
+    beforeDestroy() {
+        Vue.prototype.$cubertActive = false;
     }
 });
 

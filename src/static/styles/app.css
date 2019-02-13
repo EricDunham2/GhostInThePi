@@ -217,8 +217,13 @@ a {
   font-size: 18px;
 }
 
+.btn {
+  cursor: pointer;
+}
+
 .toggle-btn[type="checkbox"] {
   display: none;
+  cursor: pointer;
 }
 
 .toggle-btn:checked~.toggle-lbl {

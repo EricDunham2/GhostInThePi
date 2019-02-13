@@ -4,7 +4,8 @@ vm.home = new Vue({
       el:'#homeContent',
       data: {
             time: null,
-            localAddr: Vue.prototype.$ipAddress
+            localAddr: Vue.prototype.$ipAddress,
+            isActive: false,
       }, 
       methods: {
             _getTime:function() {
@@ -18,11 +19,16 @@ vm.home = new Vue({
             }
       }, 
       created() {
+            Vue.prototype.$homeActive = true;
+
             setInterval(() =>  {
                   this.time = this._getTime();
                   if (!this.localAddr) {
                         this.localAddr = Vue.prototype.$ipAddress
                   }
             }, 1000);
+      },
+      beforeDestroy() {
+            Vue.prototype.$homeActive = false;
       }
 }); 

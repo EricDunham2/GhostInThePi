@@ -10,6 +10,7 @@ vm.index = new Vue({
             camera:false
         },
         config: null,
+        globals: Vue,
     },
     methods: {
         _getConfig: function() {

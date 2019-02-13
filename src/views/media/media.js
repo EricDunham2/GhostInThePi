@@ -10,6 +10,7 @@ new Vue( {
         searchPath:"C:\\Users\\edunham4\\Downloads",
         searchTerm: "",
         indexed: {},
+        isActive: false,
     },
     methods: {
         _getMedia(path) {
@@ -86,47 +87,14 @@ new Vue( {
     }, 
     beforeMount() {
         this._getMedia(this.searchPath);
+        Vue.prototype.$mediaActive = true;
+    },
+    beforeDestroy() {
+        Vue.prototype.$mediaActive = false;
     },
     watch: {
         searchTerm() {
             this.search();
-        }
+        },
     }
-}); 
-
-/*function playClick() {
-    if (!vid.paused) { return pauseClick(); }
-    vid.play();
-}
-
-function playingSeek(value) {
-    var interval = setInterval(function () {
-        seeker.value = vid.currentTime;
-        if (vid.paused || vid.ended) { clearInterval(interval); }
-    }, 500);
-}
-
-function pauseClick() {
-    vid.pause();
-}
-
-function seek(value) {
-    vid.currentTime = value;
-}
-
-function onSeek(value) {
-    seeker.value = value;
-}
-
-function volumeChange(value) {
-    vid.volume = Number(value);
-}
-
-function fullscreenClick() {
-    vid.webkitRequestFullScreen();
-}
-
-function muteClick() {
-    vid.volume = 0;
-    volume.value = 0;
-}*/
+});

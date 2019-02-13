@@ -1,5 +1,5 @@
 {{define "contentHTML"}}
-<div class="flex-container col-100 hc" id="mediaContent">
+<div class="flex-container col-100 hc" id="mediaContent" style="height:fit-content;">
   <div class="panel col-90">
     <div class="panel-content col-100" style="margin: 0 auto; width: 80%;" v-if="!selectedFolder.parent">
         <div class="col-100 tc" style="color:#1abc9c" >Search</div>
@@ -52,61 +52,11 @@
     </div>
     </div>
   </div>
-
   <template v-if="selectedFile" v-cloak>
-    <div class="flex-container col-100" style="height:100vh; position:absolute; top:40; left:0;">
-      <div class="modal-close"  v-on:click="closeModal()">x</div>
-      <div class="media-player col-100 l2">
+    <div class="flex-container col-100" style="height:100vh; position:absolute; top:0; left:0; z-index:1000;">
+      <div class="modal-close" style="color:crimson;" v-on:click="closeModal()">x</div>
+      <div class="media-player col-100 l2" style="background:black;">
         <video class="video-player" id="video" :src="selectedFile.Video" controls></video>
-        <!--<div class="player-controls">
-          <div class="player-buttons">
-            <button id="play" onclick="playClick()" class="video-control">
-              <i class="fas fa-play"></i>
-            </button>
-            <button id="volume" onclick="muteClick()" class="video-control">
-              <i class="fas fa-volume-up"></i>
-              <input
-                type="range"
-                onchange="volumeChange(this.value)"
-                oninput="volumeChange(this.value)"
-                min="0"
-                max="1"
-                value="0"
-                step="0.01"
-                class="volume-slider"
-                id="volume"
-              />
-            </button>
-          </div>
-          <div class="player-navigation">
-            <input
-              type="range"
-              onchange="seek(this.value)"
-              oninput="seek(this.value)"
-              min="0"
-              max="100"
-              value="0"
-              step="0.1"
-              class="seek-slider"
-              id="seek-navigation"
-            />
-          </div>
-          <div class="player-augments">
-            <button
-              is="google-cast-button"
-              class="video-control"
-              id="castButton"
-              onclick="playRemote('${path}', 0, false)"
-            ></button>
-            <button
-              id="fullscreen"
-              class="video-control"
-              onclick="fullscreenClick()"
-            >
-              <i class="fas fa-expand"></i>
-            </button>
-          </div>
-        </div>-->
       </div>
     </div>
   </template>
