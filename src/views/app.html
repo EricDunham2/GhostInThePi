@@ -20,39 +20,29 @@
             <div class="navbar-icon vhc">
                 <input id="sidebar-toggle" type="checkbox" role="button" class="toggle-btn" />
                 <label for="sidebar-toggle" style="height:45px;" class="vhc toggle-ico"><i class="material-icons icon-sm logo-nav-icon"></i></label>
-                <div class="nav-menu">
+                <div class="nav-menu vhc">
                     <div class="panel col-100" v-cloak>
                         <div class="panel-content col-100 hc">
-                            <a href="/" class="tile-md l2 clickable no-touch-table navbar-menu-item">
+                            <a href="/" class="l2 clickable no-touch-table navbar-menu-item col-100" style="height:60px;">
                                 <div class="panel col-100">
-                                    <div class="panel-header col-80">Home</div>
-                                    <div class="panel-content hc">
-                                        <i class="material-icons icon-md vhc">home</i>
+                                    <div class="panel-header tc" style="font-size:25px">
+                                      Home
                                     </div>
+                                </div> 
+                            </a> 
+                            <a href="/media" class="l2 clickable no-touch-table navbar-menu-item col-100"  style="height:60px;">
+                                <div class="panel col-100">
+                                    <div class="panel-header tc" style="font-size:25px" >Media</div>
                                 </div>
                             </a>
-                            <a href="/media" class="tile-md l2 clickable no-touch-table navbar-menu-item">
+                            <a href="/CUBErt" class="l2 clickable no-touch-table navbar-menu-item col-100" v-if="options.cubert" style="height:60px;">
                                 <div class="panel col-100">
-                                    <div class="panel-header col-80">Media</div>
-                                    <div class="panel-content hc">
-                                        <i class="material-icons icon-md vhc">video_library</i>
-                                    </div>
+                                    <div class="panel-header tc" style="font-size:25px">CUBErt</div>
                                 </div>
                             </a>
-                            <a href="/CUBErt" class="tile-md l2 clickable no-touch-table navbar-menu-item" v-if="options.cubert">
+                            <a href="/camera" class="l2 clickable no-touch-table navbar-menu-item col-100" v-if="options.camera" style="height:60px;">
                                 <div class="panel col-100">
-                                    <div class="panel-header col-80">CUBErt</div>
-                                    <div class="panel-content hc">
-                                        <i class="material-icons icon-md vhc">cast</i>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="/camera" class="tile-md l2 clickable no-touch-table navbar-menu-item" v-if="options.camera">
-                                <div class="panel col-100">
-                                    <div class="panel-header col-80">Camera</div>
-                                    <div class="panel-content hc">
-                                        <i class="material-icons icon-md vhc">videocam</i>
-                                    </div>
+                                    <div class="panel-header tc" style="font-size:25px">Camera</div>
                                 </div>
                             </a>
                         </div>
