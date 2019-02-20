@@ -39,7 +39,12 @@ function post(url = ``, data = {}) {
         .then(response => response.json()); // parses response to JSON
 }
 
+
 $(function () {
+    custom_input();
+});
+
+function custom_input() {
     $(".input-group input").focus(function () {
         $(this).parent(".input-group").each(function () {
             $("label", this).css({
@@ -56,7 +61,7 @@ $(function () {
 
             $(this).parent(".input-group").each(function () {
                 $("label", this).css({
-                    "font-size": "18px",
+                    "font-size": "15px",
                 })
             });
         } else {
@@ -77,7 +82,7 @@ $(function () {
         $(".input-group input").focus();
         $(".input-group input").blur();
     }
-});
+}
 
 function toastr(message, type, timeout) {
     var body = document.getElementsByTagName("body")[0];

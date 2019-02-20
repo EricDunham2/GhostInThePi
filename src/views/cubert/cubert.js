@@ -33,7 +33,7 @@ var paintVue = new Vue({
         brushSize: 1,
         pixels: null,
         gBrush: false,
-        stopHue: 0,
+        stopHue: 170,
         color: {
             hue: 0,
             saturation: 100,

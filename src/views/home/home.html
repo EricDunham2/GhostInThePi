@@ -1,27 +1,28 @@
 {{define "contentHTML"}}
 <div id="homeContent" class="no-touch-top flex-container col-100" >
   <div class="panel col-100">
-    <div class="panel-header" style="height:fit-content;">
-        <div class="trim-content-box slogan-box">
+    <div class="panel-header">
+        <!--<div class="trim-content-box slogan-box">
             <div id="clock" v-text="time"></div>
-        </div>
+        </div>-->
     </div>
     <div class="panel-content vhc" > <!--style="height: 100%;"-->
         <div class="panel col-100">
             <div class="panel-header hc">
-                <div id="ipAddr" v-text="localAddr"></div>
+                <!--<div id="ipAddr" v-text="localAddr"></div>-->
                 <!--<div id="macAddr"></div>-->
             </div>
-            <div class="panel-content vhc">
-                <div id="network-globe"></div> <!--<globe></globe>-->
+            <div class="panel-content vhc" style="height:-webkit-fill-available">
+                <!--<div id="network-globe"></div><globe></globe>-->
+                <h3 id="quote"></h3>
             </div>
         </div>
     </div>
   </div>
 </div>
 <script src="/templates/home/home.js"></script>
-<script src="/static/scripts/thirdparty/Detector.js"></script>
+<!--<script src="/static/scripts/thirdparty/Detector.js"></script>
 <script src="/static/scripts/thirdparty/three.min.js"></script>
 <script src="/static/scripts/thirdparty/Tween.js"></script>
-<script src="/static/scripts/widgets/globe.js"></script>
+<script src="/static/scripts/widgets/globe.js"></script>-->
 {{end}}

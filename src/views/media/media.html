@@ -6,7 +6,7 @@
         <input class="col-100 dyn-input tc" style="padding:0; height: 30px; font-size: 25px; background: #222;" v-model="searchTerm"  />
     </div>
     <div class="panel-content col-100 hc" id="file-browser">
-      <div class="tile-md l3 clickable no-touch-table action" v-on:click="selectFolder(selectedFolder.parent)" v-if="selectedFolder.parent"
+      <div class="tile-md l3 clickable no-touch-table action shadow" v-on:click="selectFolder(selectedFolder.parent)" v-if="selectedFolder.parent"
         v-cloak>
         <div class="panel col-100">
           <div class="panel-header col-80">
@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="tile-md l3 clickable no-touch-table" v-if="searchTerm == ''" v-for="folder in selectedFolder.Branches" v-on:click="selectFolder(folder)"
+      <div class="tile-md l3 clickable no-touch-table shadow" v-if="searchTerm == ''" v-for="folder in selectedFolder.Branches" v-on:click="selectFolder(folder)"
         v-cloak>
         <div class="panel col-100">
           <div class="panel-header col-80 hc">
@@ -28,7 +28,7 @@
           </div>
         </div>
       </div>
-      <div class="tile-md l3 clickable no-touch-table" v-if="searchTerm == ''" v-for="file in selectedFolder.Nodes" v-on:click="selectFile(file)"
+      <div class="tile-md l3 clickable no-touch-table shadow" v-if="searchTerm == ''" v-for="file in selectedFolder.Nodes" v-on:click="selectFile(file)"
         v-cloak>
         <div class="panel col-100">
           <div class="panel-header col-80 hc">
@@ -39,7 +39,7 @@
           </div>
         </div>
       </div>
-      <div class="tile-md l3 clickable no-touch-table" v-if="searchTerm != ''" v-for="file in media.search" v-on:click="selectFile(file)"
+      <div class="tile-md l3 clickable no-touch-table shadow" v-if="searchTerm != ''" v-for="file in media.search" v-on:click="selectFile(file)"
       v-cloak>
       <div class="panel col-100">
         <div class="panel-header col-80 hc">

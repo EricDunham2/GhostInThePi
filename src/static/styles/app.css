@@ -1,6 +1,6 @@
 body {
   background: #111111;
-  color: #b5bbe4;
+  color: #d7dcdf;
   font-family: consolas;
   font-weight: bolder;
   font-size: 16px;
@@ -45,6 +45,29 @@ input::-moz-focus-outer {
 .action {
   background: crimson;
   color: black;
+}
+
+.typewriter h1 {
+  overflow: hidden;
+  border-right: .15em solid #04f886;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .15em;
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #04f886; }
 }
 
 .navbar {
@@ -110,7 +133,7 @@ input::-moz-focus-outer {
 
 a {
   text-decoration: none;
-  color: #b5bbe4;
+  color: #d7dcdf;
 }
 
 .navbar-logo {
@@ -165,7 +188,7 @@ a {
   border: 0;
   height: 37px;
   width: 250px;
-  color: #b5bbe4;
+  color: #d7dcdf;
   font-size: 16px;
   margin: auto 0;
   padding: 10px 0 0px 10px;
