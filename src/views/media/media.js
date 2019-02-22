@@ -7,7 +7,7 @@ new Vue( {
         selectedFolder:null, 
         selectedFile:null, 
         mediaPath:null, 
-        searchPath:"C:\\Users\\edunham4\\Downloads",
+        searchPath:"C:\\Users\\edunham4\\Documents\\",
         searchTerm: "",
         indexed: {},
         isActive: false,

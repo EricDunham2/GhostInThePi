@@ -34,6 +34,7 @@ var paintVue = new Vue({
         pixels: null,
         gBrush: false,
         stopHue: 170,
+        circularGradient: false,
         color: {
             hue: 0,
             saturation: 100,
@@ -138,10 +139,19 @@ var paintVue = new Vue({
             if (this.brushSize % 2 === 0) { this.brushSize = 1; }
         },
         gradientBrush(pixel) {
-            var hueDelta = this.stopHue - this.color.hue;
+            var hueDelta = (this.stopHue > this.color.hue) ? this.stopHue - this.color.hue : this.color.hue - this.stopHue;
             var newHue = pixel.x * (hueDelta / this.rows) + this.color.hue;
 
+            if (this.circularGradient) {
+                if (pixel.x >= this.rows / 2) {
+                    newHue = this.stopHue - (pixel.x * (hueDelta / (this.rows / 2)));
+                } else {
+                    newHue = this.stopHue + (pixel.x * (hueDelta / (this.rows / 2)));
+                }
+            }
+
             if (newHue > 360) { newHue = newHue - 360; }
+            if (newHue < 360) { newHue = newHue + 360; }
 
             return newHue;
         },

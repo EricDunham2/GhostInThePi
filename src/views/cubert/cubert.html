@@ -44,6 +44,15 @@
             <input type="text" placeholder="1" type="number" min="0" max="360" id="sHue" name="sHue" class="dyn-input"
               v-model="stopHue" />
           </div>
+          <div class="input-group" v-show="gBrush">
+            <div>
+              <label for="cGradient" class="dyn-input-label" id="cGradient-label">Circular Gradient</label>
+              <label class="chmk-container vhc">
+                <input type="checkbox" v-model="circularGradient" class="cb">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>

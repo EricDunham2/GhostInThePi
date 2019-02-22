@@ -17,6 +17,8 @@ import (
 
 var (
 	router *mux.Router
+	//mediaServed bool
+	//mediaRet []byte
 )
 
 func main() {
@@ -38,6 +40,7 @@ func init_routes() {
 	router.HandleFunc("/getMacAddr", getMacAddr).Methods("GET")
 	router.HandleFunc("/getIpAddr", getIpAddr).Methods("GET")
 	router.HandleFunc("/media/findMedia", FindMedia).Methods("POST")
+	//router.NotFoundHandler = http.HandlerFunc(notFound)
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl := []string{"./src/views/app.html","./src/views/home/home.html"}
@@ -142,16 +145,21 @@ func log_request(request *http.Request) {
 
 /**************** Media ******************/
 func FindMedia(w http.ResponseWriter, r *http.Request) {
-	body, _ := ioutil.ReadAll(r.Body)
-	path, _ := filepath.Abs(string(body[:]))
+	//if (!mediaServed) {
+		body, _ := ioutil.ReadAll(r.Body)
+		path, _ := filepath.Abs(string(body[:]))
+			
+		//filters := []string{".mp4", ".avi", ".wmv"}
+		filters := []string{".*"}
+		data, _ := Search(path, filters)
+
+		fs := http.FileServer(http.Dir(path))
+		router.PathPrefix("/video").Handler(http.StripPrefix("/video/", fs))
 		
-	filters := []string{".mp4", ".avi", ".wmv"}
-	data, _ := Search(path, filters)
+		re, _ := json.Marshal(data)
 
-	fs := http.FileServer(http.Dir(path))
-	router.PathPrefix("/video").Handler(http.StripPrefix("/video/", fs))
-
-	re, _ := json.Marshal(data)
+	//	mediaServed = true;
+	//}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(re)
@@ -234,7 +242,7 @@ func getDirFiles(path string, root string) []Node {
 			fp, _ = filepath.Abs(fp)
 		}
 
-		if(filepath.Ext(fp) != ".mp4") { continue }
+		if(filepath.Ext(fp) != ".mp4" || filepath.Ext(fp) != ".mp3" || filepath.Ext(fp) != ".webm" || filepath.Ext(fp) != ".weba" || filepath.Ext(fp) != ".flv" || filepath.Ext(fp) != ".wmv") { continue }
 
 		videoPath := strings.Replace(fp, root, "/video/", 1)
 		videoPath = strings.Replace(videoPath, "\\", "/", -1)
