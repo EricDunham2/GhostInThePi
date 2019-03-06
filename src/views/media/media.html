@@ -1,5 +1,8 @@
 {{define "contentHTML"}}
+<script src="/static/scripts/custom/helpers.js"></script>
+
 <div class="flex-container col-100 hc" id="mediaContent" style="height:fit-content;">
+  <h3 id="quote" v-if="selectedFolder"></h3>
   <div class="panel col-90">
     <div class="panel-content col-100" style="margin: 0 auto; width: 80%;" v-if="!selectedFolder.parent">
         <div class="col-100 tc" style="color:#1abc9c" >Search</div>

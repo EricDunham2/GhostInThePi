@@ -7,7 +7,7 @@ new Vue( {
         selectedFolder:null, 
         selectedFile:null, 
         mediaPath:null, 
-        searchPath:"C:\\Users\\edunham4\\Documents\\",
+        searchPath:"\\mnt\\",
         searchTerm: "",
         indexed: {},
         isActive: false,
@@ -19,7 +19,11 @@ new Vue( {
                 .then(this._setMedia)
         },
         _setMedia(response) {
-            if ( ! this._validateResponse(response)) {return;}
+            if ( ! this._validateResponse(response)) {
+                toastr("No Media Found.", null, 1000);
+                this.displayError("No Media Found.");
+                return;
+            }
 
             try {
                 this.media = JSON.parse(response.data);
@@ -29,7 +33,10 @@ new Vue( {
                 return;
             }
 
-            if (!this.media) {return;}
+            if (!this.media) {
+                this.displayError("No Media Found.");
+                return;
+            }
 
             this._addParentReference(this.media);
             this.selectedFolder = this.media;
@@ -83,6 +90,20 @@ new Vue( {
             filtered.forEach(key => {
                 this.media.search.push(this.indexed[key]);
             });
+        },
+        displayError(message) {
+            vm.options = {
+                strings:[
+                      message,
+                ],
+                typeSpeed:50, 
+                smartBackspace:true, 
+                loop:false, 
+                loopCount:Infinity,
+                startDelay:500
+          }
+          
+          vm.typed = new Typed("#quote", vm.options);
         }
     }, 
     beforeMount() {
