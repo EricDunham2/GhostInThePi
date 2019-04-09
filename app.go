@@ -150,7 +150,7 @@ func FindMedia(w http.ResponseWriter, r *http.Request) {
 		path, _ := filepath.Abs(string(body[:]))
 			
 		//filters := []string{".mp4", ".avi", ".wmv"}
-		filters := []string{".*"}
+		filters := []string{""}
 		data, _ := Search(path, filters)
 
 		fs := http.FileServer(http.Dir(path))
@@ -242,7 +242,7 @@ func getDirFiles(path string, root string) []Node {
 			fp, _ = filepath.Abs(fp)
 		}
 
-		if(filepath.Ext(fp) != ".mp4" || filepath.Ext(fp) != ".mp3" || filepath.Ext(fp) != ".webm" || filepath.Ext(fp) != ".weba" || filepath.Ext(fp) != ".flv" || filepath.Ext(fp) != ".wmv") { continue }
+		//if(filepath.Ext(fp) != ".mp4" || filepath.Ext(fp) != ".mp3" || filepath.Ext(fp) != ".webm" || filepath.Ext(fp) != ".weba" || filepath.Ext(fp) != ".flv" || filepath.Ext(fp) != ".wmv") { continue }
 
 		videoPath := strings.Replace(fp, root, "/video/", 1)
 		videoPath = strings.Replace(videoPath, "\\", "/", -1)

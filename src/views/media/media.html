@@ -4,9 +4,9 @@
 <div class="flex-container col-100 hc" id="mediaContent" style="height:fit-content;">
   <h3 id="quote" v-if="selectedFolder"></h3>
   <div class="panel col-90">
-    <div class="panel-content col-100" style="margin: 0 auto; width: 80%;" v-if="!selectedFolder.parent">
-        <div class="col-100 tc" style="color:#1abc9c" >Search</div>
-        <input class="col-100 dyn-input tc" style="padding:0; height: 30px; font-size: 25px; background: #222;" v-model="searchTerm"  />
+    <div class="panel-content col-80" style="margin: 10px auto;" v-if="!selectedFolder.parent">
+        <div class="col-100 tc" style="color:#00ff95;" >Search</div>
+        <input class="col-100 dyn-input tc" style="padding:0; height: 30px; font-size: 25px; background: #222; border-radius:25px;" v-model="searchTerm"  />
     </div>
     <div class="panel-content col-100 hc" id="file-browser">
       <div class="tile-md l3 clickable no-touch-table action shadow" v-on:click="selectFolder(selectedFolder.parent)" v-if="selectedFolder.parent"

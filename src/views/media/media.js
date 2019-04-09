@@ -7,10 +7,11 @@ new Vue( {
         selectedFolder:null, 
         selectedFile:null, 
         mediaPath:null, 
-        searchPath:"\\mnt\\",
+        searchPath:"C:\\Users\\edunham4\\Documents",
         searchTerm: "",
         indexed: {},
         isActive: false,
+        MEDIA_CACHED: 'mediaCached'
     },
     methods: {
         _getMedia(path) {
@@ -19,29 +20,33 @@ new Vue( {
                 .then(this._setMedia)
         },
         _setMedia(response) {
-            if ( ! this._validateResponse(response)) {
+            console.log(response);
+
+            if (!this._validateResponse(response)) {
                 toastr("No Media Found.", null, 1000);
-                this.displayError("No Media Found.");
+                return;
+            }
+
+            if (sessionStorage.getItem(this.MEDIA_CACHED) === response.data) {
                 return;
             }
 
             try {
-                this.media = JSON.parse(response.data);
-                this.media.search = [];
-            }catch(err) {
+                sessionStorage.setItem(this.MEDIA_CACHED, response.data);
+            } catch(err) {
                 console.log(err);
-                return;
             }
+            
+            this.media = JSON.parse(response.data);
+            this.media.search = [];
+            this._massageMedia();
 
-            if (!this.media) {
-                this.displayError("No Media Found.");
-                return;
-            }
-
+        },
+        _massageMedia() {
             this._addParentReference(this.media);
             this.selectedFolder = this.media;
             this._indexNodes(this.media);
-        }, 
+        },
         _validateResponse(response) {
             return response && response.status === 200 && response.data
         }, 
@@ -91,22 +96,13 @@ new Vue( {
                 this.media.search.push(this.indexed[key]);
             });
         },
-        displayError(message) {
-            vm.options = {
-                strings:[
-                      message,
-                ],
-                typeSpeed:50, 
-                smartBackspace:true, 
-                loop:false, 
-                loopCount:Infinity,
-                startDelay:500
-          }
-          
-          vm.typed = new Typed("#quote", vm.options);
-        }
     }, 
     beforeMount() {
+        if (sessionStorage.getItem(this.MEDIA_CACHED)) {
+            this.media = JSON.parse(sessionStorage.getItem(this.MEDIA_CACHED))
+            this._massageMedia();
+        }
+
         this._getMedia(this.searchPath);
         Vue.prototype.$mediaActive = true;
     },

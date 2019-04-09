@@ -143,15 +143,21 @@ var paintVue = new Vue({
             var newHue = pixel.x * (hueDelta / this.rows) + this.color.hue;
 
             if (this.circularGradient) {
-                if (pixel.x >= this.rows / 2) {
-                    newHue = this.stopHue - (pixel.x * (hueDelta / (this.rows / 2)));
-                } else {
-                    newHue = this.stopHue + (pixel.x * (hueDelta / (this.rows / 2)));
-                }
+                var h = this.rows / 2;
+                var x = pixel.x;
+
+                if (pixel.x > h) {
+                    //To tired and sick to think of math and a better solution.
+                    x = Math.abs(Math.abs(h - pixel.x) - 16);
+                } 
+
+                newHue = this.color.hue - (x * ((hueDelta) / (this.rows / 2)));
             }
 
             if (newHue > 360) { newHue = newHue - 360; }
             if (newHue < 360) { newHue = newHue + 360; }
+
+            console.log(newHue);
 
             return newHue;
         },
@@ -182,11 +188,11 @@ var paintVue = new Vue({
                     .post(`http://${Vue.prototype.$cubertIp}/apply`, pkgPixels)
                     .then(this._responseHandler);
             } catch (err) {
-                toastr(err, "error", 5000)
+                //toastr(err, "error", 5000)
             }
         },
         _responseHandler(response) {
-            if (!this._validateResponse(response)) { toastr(JSON.stringify(response), "error", 5000) }
+            if (!this._validateResponse(response)) { console.log(response); }//toastr(JSON.stringify(response), "error", 5000) }
         },
         _validateResponse(response) {
             return response && response.status === 200 && response.data
