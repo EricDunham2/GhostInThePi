@@ -22,11 +22,16 @@ var (
 )
 
 func main() {
+	log_message("Creating router...")
 	router = mux.NewRouter()
+
+	log_message("Initializing router...")
 	init_routes()
 
+	log_message("Serving router...")
 	http.ListenAndServe(":5000", router)
-	fmt.Println("Listening");
+
+	log_message("Listening on localhost:5000")
 }
 
 func init_routes() {
@@ -43,7 +48,7 @@ func init_routes() {
 	//router.NotFoundHandler = http.HandlerFunc(notFound)
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := []string{"./src/views/app.html","./src/views/home/home.html"}
+		tmpl := []string{"./src/views/app.html"}
 		i, err := template.New("").ParseFiles(tmpl...)
 
 		if err != nil {
@@ -51,72 +56,7 @@ func init_routes() {
 			return
 		}
 
-		log_request(r)
-		i.ExecuteTemplate(w, "baseHTML", "")
-	})
-
-	router.HandleFunc("/CUBErt", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := []string{"./src/views/app.html","./src/views/cubert/cubert.html"}
-		i, err := template.New("").ParseFiles(tmpl...)
-
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-
-		log_request(r)
-		i.ExecuteTemplate(w, "baseHTML", "")
-	})
-
-	router.HandleFunc("/media", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := []string{"./src/views/app.html","./src/views/media/media.html"}
-		i, err := template.New("").ParseFiles(tmpl...)
-
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-
-		log_request(r)
-		i.ExecuteTemplate(w, "baseHTML", "")
-	})
-
-	router.HandleFunc("/camera", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := []string{"./src/views/app.html","./src/views/camera/camera.html"}
-		i, err := template.New("").ParseFiles(tmpl...)
-
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-
-		log_request(r)
-		i.ExecuteTemplate(w, "baseHTML", "")
-	})
-
-	router.HandleFunc("/music", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := []string{"./src/views/app.html","./src/views/music/music.html"}
-		i, err := template.New("").ParseFiles(tmpl...)
-
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-
-		log_request(r)
-		i.ExecuteTemplate(w, "baseHTML", "")
-	})
-
-	router.HandleFunc("/torrent", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := []string{"./src/views/app.html","./src/views/torrent/torrent.html"}
-		i, err := template.New("").ParseFiles(tmpl...)
-
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-
-		log_request(r)
+		log_message("Loading main page...")
 		i.ExecuteTemplate(w, "baseHTML", "")
 	})
 }
@@ -128,12 +68,16 @@ func ft(t time.Time) string {
 	min := t.Minute()
 	sec := t.Second()
 
-	output := fmt.Sprintf("%d:%d:%d",
+	output := fmt.Sprintf("%02d:%02d:%02d",
 		hour,
 		min,
 		sec)
 
 	return output
+}
+
+func log_message(message string) {
+	fmt.Println("[" + ft(time.Now()) + "] "  + message)
 }
 
 func log_request(request *http.Request) {
@@ -145,13 +89,20 @@ func log_request(request *http.Request) {
 
 /**************** Media ******************/
 func FindMedia(w http.ResponseWriter, r *http.Request) {
+		log_message("Media serve request...")
+
 	//if (!mediaServed) {
 		body, _ := ioutil.ReadAll(r.Body)
 		path, _ := filepath.Abs(string(body[:]))
+
+		log_message(fmt.Sprintf("Media path %s...", path))
+
 			
 		//filters := []string{".mp4", ".avi", ".wmv"}
 		filters := []string{""}
 		data, _ := Search(path, filters)
+
+		log_message(fmt.Sprintf("Media filters %s...", filters))
 
 		fs := http.FileServer(http.Dir(path))
 		router.PathPrefix("/video").Handler(http.StripPrefix("/video/", fs))
@@ -160,6 +111,8 @@ func FindMedia(w http.ResponseWriter, r *http.Request) {
 
 	//	mediaServed = true;
 	//}
+
+	log_message("Media served...")
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(re)
@@ -187,7 +140,7 @@ func (branch *Branch) addBranch(b Branch) []Branch{
 func Build(root string, filters []string) string {
 	root, _ = filepath.Abs(root)
 
-	var rootBranch Branch = Branch{Name: pathName(root),Path: root, Branches:  []Branch{}}	
+	var rootBranch Branch = Branch{Name: pathName(root),Path: root, Branches:  []Branch{}}
 	var branchLookup map[string]*Branch = make(map[string]*Branch)
 
 	rootBranch.Nodes = getDirFiles(root, root)
@@ -218,6 +171,7 @@ func Build(root string, filters []string) string {
 	})
 
 	j ,_ := json.Marshal(rootBranch)
+	
 	return string(j)
 }
 

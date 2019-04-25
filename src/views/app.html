@@ -6,41 +6,51 @@
     <link rel="stylesheet" href="/static/styles/custom.css">
     <link rel="stylesheet" href="/static/styles/app.css">
     <link rel="stylesheet" href="/static/styles/material_icons.css">
+    <link rel="stylesheet" href="/static/styles/vue-color-picker.min.css">
 
+    <script src="/static/scripts/thirdparty/jquery-2.1.0.min.js"></script>
+    <script src="/static/scripts/custom/helpers.js"></script>
     <script src="/static/scripts/thirdparty/all.js"></script>
     <script src="/static/scripts/thirdparty/typed-2_0_9.js"></script>
-    <script src="/static/scripts/thirdparty/jquery-2.1.0.min.js"></script>
     <script src="/static/scripts/thirdparty/axios.min.js"></script>
     <script src="/static/scripts/thirdparty/vue-2.5.17.js"></script>
+    <!--<script src="/static/scripts/thirdparty/cast_framework.js"></script>
+    <script src="/static/scripts/thirdparty/cast_sender.js"></script>-->
+    <script src="/static/scripts/widgets/vue-color-picker.js"></script>
+
+    <script src="/templates/home/home.js"></script>
+    <script src="/templates/media/media.js"></script>
+    <script src="/templates/cubert/cubert.js"></script>
+
 </head>
 
-<body class="noselect" >
-    <div class="navbar vc" id="indexApp">
+<div class="noselect" id="indexApp">
+    <div class="navbar vc" >
         <div class="navbar-logo">
             <div class="navbar-icon vhc">
                 <input id="sidebar-toggle" type="checkbox" role="button" class="toggle-btn" />
-                <label for="sidebar-toggle" style="height:45px;" class="vhc toggle-ico"><i class="material-icons icon-sm logo-nav-icon"></i></label>
+                <label for="sidebar-toggle" class="vhc toggle-ico"><i class="material-icons icon-xs logo-nav-icon"></i></label>
                 <div class="nav-menu vhc">
                     <div class="panel col-100" v-cloak>
                         <div class="panel-content col-100 hc">
-                            <a href="/" class="l2 clickable no-touch-table navbar-menu-item col-100" style="height:60px;">
+                            <a v-on:click="setComponent('home')" class="l2 clickable no-touch-table navbar-menu-item col-100" style="height:60px;">
                                 <div class="panel col-100">
                                     <div class="panel-header tc" style="font-size:25px">
                                       Home
                                     </div>
                                 </div> 
                             </a> 
-                            <a href="/media" class="l2 clickable no-touch-table navbar-menu-item col-100"  style="height:60px;">
+                            <a v-on:click="setComponent('media')" class="l2 clickable no-touch-table navbar-menu-item col-100"  style="height:60px;">
                                 <div class="panel col-100">
                                     <div class="panel-header tc" style="font-size:25px" >Media</div>
                                 </div>
                             </a>
-                            <a href="/CUBErt" class="l2 clickable no-touch-table navbar-menu-item col-100" v-if="options.cubert" style="height:60px;">
+                            <a v-on:click="setComponent('cubert')" class="l2 clickable no-touch-table navbar-menu-item col-100" v-if="options.cubert" style="height:60px;">
                                 <div class="panel col-100">
                                     <div class="panel-header tc" style="font-size:25px">CUBErt</div>
                                 </div>
                             </a>
-                            <a href="/camera" class="l2 clickable no-touch-table navbar-menu-item col-100" v-if="options.camera" style="height:60px;">
+                            <a class="l2 clickable no-touch-table navbar-menu-item col-100" v-if="options.camera" style="height:60px;">
                                 <div class="panel col-100">
                                     <div class="panel-header tc" style="font-size:25px">Camera</div>
                                 </div>
@@ -52,22 +62,31 @@
             </div>
         </div>
         <div class="navbar-navigation vhc" v-cloak>
-            <a href="/" class="navbar-item vhc" v-bind:class="{active: globals.prototype.$homeActive}">
+            <a class="navbar-item vhc" v-on:click="setComponent('home') ">
                 <div class="vhc">Home</div>
             </a>
-            <a href="/media" class="navbar-item vhc" v-bind:class="{active: globals.prototype.$mediaActive}">
+            <a class="navbar-item vhc" v-on:click="setComponent('media')">
                 <div class="vhc">Media</div>
             </a>
-            <a href="/CUBErt" class="navbar-item vhc" v-if="options.cubert" v-bind:class="{active: globals.prototype.$cubertActive}">
+            <a class="navbar-item vhc" v-on:click="setComponent('cubert')" >
                 <div class="vhc">CUBErt</div>
             </a>
-            <a href="/camera" class="navbar-item vhc" v-if="options.camera" v-bind:class="{active: globals.prototype.$cameraActive}">
+            <a class="navbar-item vhc" v-if="options.camera">
                 <div class="vhc">Camera</div>
             </a>
         </div>
     </div>
-        {{ template "contentHTML" .}}
+    <div class="content vhc">
+        <keep-alive>
+            <home v-if="component == 'home'"></home>
+        </keep-alive>
+        <keep-alive>
+            <media v-if="component == 'media'"></media>
+        </keep-alive>
+        <keep-alive>
+            <cubert v-if="component == 'cubert'"></cubert>
+        </keep-alive>
     </div>
-</body>
+</div>
 <script src="/templates/app.js"></script>
 {{end}}

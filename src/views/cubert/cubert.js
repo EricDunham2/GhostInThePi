@@ -1,5 +1,4 @@
 
-var vm = this;
 var ColorPicker = VueColorPicker;
 
 class Pixel {
@@ -22,24 +21,25 @@ class Pixel {
     }
 }
 
-var paintVue = new Vue({
-    el: '#paintContent',
-    data: {
-        rows: 32,
-        cols: 32,
-        parallels: 1,
-        panels: "0",
-        mouseDown: false,
-        brushSize: 1,
-        pixels: null,
-        gBrush: false,
-        stopHue: 170,
-        circularGradient: false,
-        color: {
-            hue: 0,
-            saturation: 100,
-            luminosity: 50,
-            alpha: 1
+Vue.component('cubert', {
+    data: function() {
+        return {
+            rows: 32,
+            cols: 32,
+            parallels: 1,
+            panels: "0",
+            mouseDown: false,
+            brushSize: 1,
+            pixels: null,
+            gBrush: false,
+            stopHue: 170,
+            circularGradient: false,
+            color: {
+                hue: 0,
+                saturation: 100,
+                luminosity: 50,
+                alpha: 1
+            }
         }
     },
     components: {
@@ -254,67 +254,126 @@ var paintVue = new Vue({
         }
     },
     beforeMount() {
-        Vue.prototype.$cubertActive = true;
         this.createMatrix();
         console.log(this);
     },
-    beforeDestroy() {
-        Vue.prototype.$cubertActive = false;
-    }
+    template: `
+    <div>
+  <div class="hc col-100 flex-container" id="paintContent">
+    <div class="panel col-80">
+      <div class="panel col-50 pull-left">
+        <div class="panel-header">Configuration</div>
+        <div class="panel-content">
+          <div class="input-group">
+            <label for="rows" class="dyn-input-label" id="rows-label">Rows</label>
+            <input type="text" id="rows-setting" name="rows" class="dyn-input" v-model="rows" />
+          </div>
+          <div class="input-group">
+            <label for="cols" class="dyn-input-label" id="cols-label">Cols</label>
+            <input type="text" id="cols-setting" name="cols" class="dyn-input" v-model="cols" />
+          </div>
+          <div class="input-group">
+            <label for="parallel" class="dyn-input-label" id="parallel-label">Parallel</label>
+            <input type="text" id="parallel-setting" name="parallel" class="dyn-input" v-model="parallels" />
+          </div>
+          <div class="input-group">
+            <label for="parallel" class="dyn-input-label" id="panel-label">Panels</label>
+            <input type="text" placeholder="0,1,2,3" id="panel-input" type="text" name="parallel" class="dyn-input"
+              v-model="panels" />
+          </div>
+        </div>
+      </div>
+      <div class="panel col-50 pull-right">
+        <div class="panel-header">Paint Options</div>
+        <div class="panel-content">
+          <div class="input-group">
+            <label for="brush" class="dyn-input-label" id="brush-label">Brush Size</label>
+            <input type="text" placeholder="1" type="number" min="1" max="3" id="brush" v-on:change="setBrushSize()"
+              name="parallel" class="dyn-input" v-model="brushSize" />
+          </div>
+          <div class="input-group">
+            <label for="hue" class="dyn-input-label" id="sHue-label">Hue</label>
+            <input type="text" placeholder="1" type="number" min="0" max="360" id="hue" name="hue" class="dyn-input"
+              v-model="color.hue" />
+          </div>
+          <div class="input-group" v-show="gBrush">
+            <label for="sHue" class="dyn-input-label" id="sHue-label" title="Only used when gradient brush is selected">Gradient Stop Hue</label>
+            <input type="text" placeholder="1" type="number" min="0" max="360" id="sHue" name="sHue" class="dyn-input"
+              v-model="stopHue" />
+          </div>
+          <div class="input-group" v-show="gBrush">
+            <div>
+              <label for="cGradient" class="dyn-input-label" id="cGradient-label">Circular Gradient</label>
+              <label class="chmk-container vhc">
+                <input type="checkbox" v-model="circularGradient" class="cb">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel col-50">
+      <div class="panel-header vhc">
+        <span>Actions</span>
+      </div>
+      <div class="panel-content vhc">
+        <div class="btn vhc l3" v-on:click="createMatrix()">
+          <span class="tc">New</span>
+        </div>
+        <div class="btn vhc l3" v-on:click="apply()">
+          <span class="tc">Apply</span>
+        </div>
+        <div class="btn vhc l3" v-on:click="test()">
+          <span class="tc">Gradient</span>
+        </div>
+        <div class="btn vhc l3" v-on:click="test()">
+          <span class="tc">Test</span>
+        </div>
+        <div class="vhc">
+          <input id="rotating" type="checkbox" role="button" class="toggle-btn" v-on:click="rotate()" />
+          <label for="rotating" class="toggle-lbl vhc l3"><span class="tc">Rotate</span></label>
+        </div>
+        <div class="vhc">
+            <input id="graBrush" type="checkbox" role="button" class="toggle-btn" v-model="gBrush"/>
+            <label for="graBrush" class="toggle-lbl vhc l3" style="font-size:15px;"><span class="tc">Grad Brush</span></label>
+          </div>
+      </div>
+    </div>
+    <div class="panel col-80">
+      <div class="panel-header"></div>
+      <div class="panel-content hc">
+        <div class="panel col-50">
+          <div class="panel-content vhc col-100" style="height:80px;">
+            <div>Luminance</div>
+            <div class="range-slider hc">
+              <input class="range-slider__range" type="range" value="100" min="0" max="100" v-model="color.luminosity">
+            </div>
+          </div>
+          <div class="panel-content hc">
+            <color-picker v-bind="color" @input="onInput"></color-picker>
+          </div>
+        </div>
+        <div class="panel col-100">
+          <div class="panel-header"></div>
+          <div class="panel-content hc">
+            <div id="matrix" class="matrix hc" v-on:touchmove="setPixelMobile($event)">
+              <div v-for="row in pixels" class="row hc col-100">
+                <div v-for="pixel in row" v-bind:x="pixel.x" v-bind:y="pixel.y" class="pixel" v-bind:style="pixel.style"
+                  :key="pixel.id" v-on:mouseover="setPixel(pixel)"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    `
+
 });
 
-function hsl2rgb (h, s, l) {
-    var r, g, b, m, c, x
-
-    if (!isFinite(h)) h = 0
-    if (!isFinite(s)) s = 0
-    if (!isFinite(l)) l = 0
-
-    h /= 60
-    if (h < 0) h = 6 - (-h % 6)
-    h %= 6
-
-    s = Math.max(0, Math.min(1, s / 100))
-    l = Math.max(0, Math.min(1, l / 100))
-
-    c = (1 - Math.abs((2 * l) - 1)) * s
-    x = c * (1 - Math.abs((h % 2) - 1))
-
-    if (h < 1) {
-        r = c
-        g = x
-        b = 0
-    } else if (h < 2) {
-        r = x
-        g = c
-        b = 0
-    } else if (h < 3) {
-        r = 0
-        g = c
-        b = x
-    } else if (h < 4) {
-        r = 0
-        g = x
-        b = c
-    } else if (h < 5) {
-        r = x
-        g = 0
-        b = c
-    } else {
-        r = c
-        g = 0
-        b = x
-    }
-
-    m = l - c / 2
-    r = Math.round((r + m) * 255)
-    g = Math.round((g + m) * 255)
-    b = Math.round((b + m) * 255)
-
-    return { r: r, g: g, b: b }
-}
-
-function init() {
+/*function init() {
     document.body.onmousedown = function() {
         paintVue.mouseDown = true;
     }
@@ -332,4 +391,4 @@ function init() {
     }
 }
 
-init();
+init();*/
